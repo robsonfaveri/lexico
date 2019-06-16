@@ -2,20 +2,20 @@
 
 
 {% block body %}
-
+    <h2>Analisador Léxico</h2>
     <form method="post" action="{{ path('home') }}">
 
         <div class="form-group">
             <textarea class="form-control" name="mensagem" id="campoMensagem" placeholder="Digite o codigo" required></textarea>
         </div>
-        <button type="submit" class="btn btn-success">Analizar</button>
+        <button type="submit" id="btn" class="btn btn-success">Analisar</button>
     </form>
-    <p><strong>Resultados</strong></p>
-    <table>
-        <thead>
-            <th>CODIGO</th>
+    <h3><strong>Resultados</strong></h3>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <th>CÓDIGO</th>
             <th>TOKEN</th>
-            <th>DESCRICAO</th>
+            <th>DESCRIÇÃO</th>
         </thead>
         <tbody>
 
