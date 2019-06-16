@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+    <form method="post" action="{{ path('home') }}">
+
+        <div class="form-group">
+            <textarea class="form-control" name="mensagem" id="campoMensagem" placeholder="Digite o codigo" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Analizar</button>
+    </form>
+<p><strong>Resultados</strong></p>
+    <table>
+        <thead>
+            <th>CODIGO</th>
+            <th>TOKEN</th>
+            <th>DESCRICAO</th>
+        </thead>
+        <tbody>
+
+        {% for token in listTokens %}
+            <tr>
+                <td>{{ token.code }}</td>
+                <td>{{ token.name }}</td>
+                <td>{{ token.description }}</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

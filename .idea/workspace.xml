@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e861b98f-652d-44a9-8c89-76eb8e2e4b33" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../3ctiming/.env.dist" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/.env.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/bin/console" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/bin/console" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/bin/phpunit" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/bin/phpunit" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/dev/debug.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/dev/debug.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/dev/easy_log_handler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/dev/easy_log_handler.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/dev/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/dev/monolog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/dev/routing.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/dev/routing.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/dev/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/dev/swiftmailer.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/dev/web_profiler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/dev/web_profiler.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/doctrine.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/doctrine_migrations.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/doctrine_migrations.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/fos_user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/fos_user.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/prod/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/prod/doctrine.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/prod/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/prod/monolog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/routing.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/routing.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/security_checker.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/security_checker.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/sensio_framework_extra.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/sensio_framework_extra.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/sonata.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/sonata.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/sonata_admin.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/sonata_admin.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/swiftmailer.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/test/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/test/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/test/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/test/monolog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/test/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/test/swiftmailer.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/test/web_profiler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/test/web_profiler.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/translation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/translation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/twig.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/twig_extensions.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/twig_extensions.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/packages/validator.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/packages/validator.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/routes/annotations.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/routes/annotations.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/routes/dev/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/routes/dev/twig.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/routes/dev/web_profiler.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/routes/dev/web_profiler.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/routes/sonata_admin.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/routes/sonata_admin.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/images/IMG_7268.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/images/IMG_7268.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/phpdocker/README.html" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/phpdocker/README.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/phpdocker/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/phpdocker/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/phpdocker/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/phpdocker/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/phpdocker/php-fpm/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/phpdocker/php-fpm/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/phpdocker/php-fpm/php-ini-overrides.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/phpdocker/php-fpm/php-ini-overrides.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/phpunit.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/phpunit.xml.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/dropzone/dropzone.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/dropzone/dropzone.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/dropzone/dropzone.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/dropzone/dropzone.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/notify/bootstrap-notify.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/notify/bootstrap-notify.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/upload/resultados.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/upload/resultados.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/utils/jquery.flip.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/utils/jquery.flip.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/utils/particles.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/utils/particles.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/utils/particulas.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/utils/particulas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/assets/utils/stats.js" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/assets/utils/stats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/css/admin/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/css/admin/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/css/home/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/css/home/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/images/2018-10-08_10-555bbbe04b6e4ed" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/images/2018-10-08_10-555bbbe04b6e4ed" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/images/imagem_corrida_5bbbe1a8ea66d.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/images/imagem_corrida_5bbbe1a8ea66d.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/photos/IMG_7268.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/photos/IMG_7268.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/photos/certificado.png" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/photos/certificado.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/photos/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/photos/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/slider/foto1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/slider/foto1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/public/slider/foto2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/public/slider/foto2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Admin/AnexoAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Admin/AnexoAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Admin/CategoriaAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Admin/CategoriaAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Admin/ContatoAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Admin/ContatoAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Admin/CorridaAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Admin/CorridaAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Admin/ImageAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Admin/ImageAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Admin/ResultadoAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Admin/ResultadoAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/ApplicationSonataUserBundle.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/ApplicationSonataUserBundle.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Document/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Document/Group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Document/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Document/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Entity/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Entity/Group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/Group.mongodb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/Group.mongodb.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/Group.orm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/Group.orm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/User.mongodb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/User.mongodb.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/User.orm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/doctrine/User.orm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Document.Group.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Document.Group.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Document.User.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Document.User.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Entity.Group.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Entity.Group.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Entity.User.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Application/Sonata/UserBundle/Resources/config/serializer/Entity.User.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Controller/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Controller/Admin/CategoriaAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Controller/Admin/CategoriaAdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Controller/Admin/UploadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Controller/Admin/UploadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Controller/Home/ContatoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Controller/Home/ContatoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Controller/Home/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Controller/Home/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/DataTransformer/ArrayToResultadoDataTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/DataTransformer/ArrayToResultadoDataTransformer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Anexo.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Anexo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Categoria.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Categoria.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Contato.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Contato.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Corrida.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Corrida.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Filter/CorridaFilter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Filter/CorridaFilter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Entity/Resultado.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Entity/Resultado.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Form/BuscaCorridaType.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Form/BuscaCorridaType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Manager/ResultadoManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Manager/ResultadoManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Manager/UploadManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Manager/UploadManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Manager/XlsManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Manager/XlsManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Migrations/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Migrations/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Migrations/Version20181214000803.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Migrations/Version20181214000803.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Migrations/Version20181218020431.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Migrations/Version20181218020431.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Migrations/Version20181220190504.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Migrations/Version20181220190504.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/AnexoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/AnexoRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/CategoriaRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/CategoriaRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/ContatoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/ContatoRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/CorridaRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/CorridaRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/ImageRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/ImageRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Repository/ResultadoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Repository/ResultadoRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/src/Twig/ResultadoExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/src/Twig/ResultadoExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/delete.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/delete.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/table_list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/table_list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/Admin/Corrida/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/Admin/Corrida/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/Admin/Corrida/list__action_gerenciar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/Admin/Corrida/list__action_gerenciar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/Admin/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/Admin/dashboard.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/accordion_categoria.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/accordion_categoria.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/card_corrida.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/card_corrida.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/contato.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/contato.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/corpo_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/corpo_email.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/proximas.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/proximas.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/resultado_corrida.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/resultado_corrida.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/resultados.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/resultados.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/templates/home/tabela_resultados.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/templates/home/tabela_resultados.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/tests/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/tests/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/translations/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/translations/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3ctiming/translations/messages.pt_BR.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../3ctiming/translations/messages.pt_BR.yaml" afterDir="false" />
+      <change beforePath="/www/SENAI/Fontes/meusenai/src/Entity/Base/Anexo.php" beforeDir="false" afterPath="/www/SENAI/Fontes/meusenai/src/Entity/Base/Anexo.php" afterDir="false" />
+      <change beforePath="/www/SENAI/Fontes/meusenai/src/Entity/Conteudo/AcesseAplicativo.php" beforeDir="false" afterPath="/www/SENAI/Fontes/meusenai/src/Entity/Conteudo/AcesseAplicativo.php" afterDir="false" />
+      <change beforePath="/www/SENAI/Fontes/meusenai/src/Entity/Suporte/ChamadoComentario.php" beforeDir="false" afterPath="/www/SENAI/Fontes/meusenai/src/Entity/Suporte/ChamadoComentario.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="lexico" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/IndexController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+              <folding>
+                <element signature="e#36#57#0#PHP" expanded="true" />
+                <element signature="e#584#606#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Service/AnalizerService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1185">
+              <caret line="113" column="56" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
+              <folding>
+                <element signature="e#33#54#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="21" selection-start-line="21" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env.local">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Exception/LexicalError.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-16">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/home/index.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+              <folding>
+                <element signature="e#12#26#0#Twig" expanded="true" />
+                <element signature="e#92#96#0#Twig" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Token.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/resultados.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-121">
+              <folding>
+                <element signature="e#12#26#0#Twig" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/tabela_resultados.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>$charProcessadas</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../3ctiming" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/config/routes.yaml" />
+        <option value="$PROJECT_DIR$/templates/base.html.twig" />
+        <option value="$PROJECT_DIR$/config/services.yaml" />
+        <option value="$PROJECT_DIR$/src/Entity/Token.php" />
+        <option value="$PROJECT_DIR$/src/Exception/LexicalError.php" />
+        <option value="$PROJECT_DIR$/templates/home/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/IndexController.php" />
+        <option value="$PROJECT_DIR$/src/Service/AnalizerService.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-guard" />
+      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/facebook/webdriver" />
+      <path value="$PROJECT_DIR$/vendor/easycorp/easy-log-handler" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/psr/link" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/vendor/fig/link-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/ocramius/proxy-manager" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/vendor/ocramius/package-versions" />
+      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/twig-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/orm-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-link" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/vendor/symfony/panther" />
+      <path value="$PROJECT_DIR$/vendor/symfony/inflector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-bridge" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer-pack" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/reflection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/test-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/profiler-pack" />
+      <path value="$PROJECT_DIR$/vendor/symfony/validator" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="27" />
+    <option name="width" value="1221" />
+    <option name="height" value="635" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lexico" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lexico" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="Home" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DataTransformer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Categoria" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Corrida" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="3ctiming" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="Acesso" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+              <item name="Anexo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="lexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="meusenai" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+              <item name="Notificacao" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="Symfony2.SettingsForm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e861b98f-652d-44a9-8c89-76eb8e2e4b33" name="Default Changelist" comment="" />
+      <created>1560610487665</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1560610487665</updated>
+      <workItem from="1560610489002" duration="25900000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="25900000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="27" width="1366" height="697" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" sideWeight="0.50089127" side_tool="true" weight="0.22878788" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49910873" visible="true" weight="0.16363636" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32976827" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/Admin/Corrida/list__action_gerenciar.html.twig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/Admin/Categoria/list.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="122" selection-start-line="6" selection-start-column="122" selection-end-line="6" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/services.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="72" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Manager/ResultadoManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Manager/XlsManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Entity/Categoria.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-105">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Entity/Contato.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Entity/Image.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-105">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Controller/Admin/UploadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/DataTransformer/ArrayToResultadoDataTransformer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-195">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Repository/CategoriaRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Core/Core_c.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-66">
+          <caret line="261" column="6" selection-start-line="261" selection-start-column="6" selection-end-line="261" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///www/SENAI/Fontes/meusenai/src/Service/Notificacao/NotificacaoEmailService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Manager/UploadManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/contato.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="60" column="23" selection-start-line="36" selection-start-column="16" selection-end-line="60" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="76" selection-start-line="6" selection-start-column="76" selection-end-line="8" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/resultado_corrida.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-586">
+          <folding>
+            <element signature="e#12#26#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Controller/Admin/CategoriaAdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-345">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Controller/Home/ContatoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding>
+            <element signature="e#120#185#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Controller/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/src/Controller/Home/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-165">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#12#26#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///www/SENAI/Fontes/meusenai/src/Controller/Acesso/RecuperarSenhaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-421">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///www/SENAI/Fontes/meusenai/src/Controller/Admin/ConteudoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="90" column="24" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///www/SENAI/Fontes/meusenai/src/Controller/Admin/AcesseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-810">
+          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/var/log/dev.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-2961" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/resultados.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-121">
+          <folding>
+            <element signature="e#12#26#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../3ctiming/templates/home/tabela_resultados.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exception/LexicalError.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Token.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/home/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <folding>
+            <element signature="e#12#26#0#Twig" expanded="true" />
+            <element signature="e#92#96#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding>
+            <element signature="e#36#57#0#PHP" expanded="true" />
+            <element signature="e#584#606#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/AnalizerService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1185">
+          <caret line="113" column="56" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
+          <folding>
+            <element signature="e#33#54#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="21" selection-start-line="21" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env.local">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>
