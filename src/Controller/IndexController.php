@@ -17,14 +17,11 @@ class IndexController extends AbstractController
      * @Route("/", name="home", methods={"GET","POST"})
      */
     public function index(Request $request) {
-
-
         $listTokens =  new ArrayCollection();
         if($request->request->get('mensagem')){
             $message = $request->request->get('mensagem');
 
             $analizerService = new AnalizerService($message);
-
 
             while(($token = $analizerService->nextToken()) != null){
                 $listTokens->add($token);

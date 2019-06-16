@@ -223,10 +223,7 @@ class AnalizerService
                             $i+=1;
                         }
                         break;
-
-
                 }
-
             }
 
             if($this->openComment)
