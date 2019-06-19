@@ -6,27 +6,41 @@
     <form method="post" action="{{ path('home') }}">
 
         <div class="form-group">
-            <textarea class="form-control" name="mensagem" id="campoMensagem" placeholder="Digite o codigo" required></textarea>
+            <textarea class="form-control" id="campoMensagem" name="mensagem" placeholder="Digite o codigo" required></textarea>
         </div>
-        <button type="submit" id="btn" class="btn btn-success">Analisar</button>
+        <button class="btn btn-success" id="btn" type="submit">Analisar</button>
     </form>
-    <h3><strong>Resultados</strong></h3>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <th>CÓDIGO</th>
-            <th>TOKEN</th>
-            <th>DESCRIÇÃO</th>
-        </thead>
-        <tbody>
+    {% if error != null %}
+        <h3 class="text-danger display-4">
+            ERRO!
+        </h3>
+        <hr class="my-4">
+        <h4>Erro no código
+            <strong>"{{error.msg}}"</strong>, caracter de número
+            <strong>{{error.index}}</strong>
+        </h4>
+        <hr class="my-4">
+    {% else %}
+        <h3>
+            <strong>Resultados</strong>
+        </h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <th>CÓDIGO</th>
+                <th>TOKEN</th>
+                <th>DESCRIÇÃO</th>
+            </thead>
+            <tbody>
 
-        {% for token in listTokens %}
-            <tr>
-                <td>{{ token.code }}</td>
-                <td>{{ token.name }}</td>
-                <td>{{ token.description }}</td>
-            </tr>
+                {% for token in listTokens %}
+                    <tr>
+                        <td>{{ token.code }}</td>
+                        <td>{{ token.name }}</td>
+                        <td>{{ token.description }}</td>
+                    </tr>
 
-        {% endfor %}
-        </tbody>
-    </table>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}

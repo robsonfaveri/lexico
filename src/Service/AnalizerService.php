@@ -68,8 +68,7 @@ class AnalizerService
     }
 
     public function nextToken() {
-        try{
-            $charProcessadas = '';
+        $charProcessadas = '';
 
             for($i = $this->index; $i< strlen($this->content); $i++) {
                 $this->index = $i;
@@ -113,7 +112,7 @@ class AnalizerService
                             $this->state = 7;
                         } else if ($this->current == '.') {
                             $this->index = $i + 1;
-                            return new Token($charProcessadas, 16, "Ponto");
+                            return new Token($this->current, 16, "Ponto");
                         } else if ($this->current == '(') {
                             $charProcessadas .= $this->current;
                             $this->state = 14;
@@ -133,7 +132,7 @@ class AnalizerService
                         } else {
                             throw new LexicalError("Caractere Invalido", $i, 1);
                         }
-
+                    
                         break;
                     case 1:
                         if ($this->bound($this->current, $this->letters) || $this->bound($this->current, $this->numbers)) {
@@ -234,9 +233,7 @@ class AnalizerService
 
             return null;
 
-        }catch (LexicalError $e){
-            dd($e);
-        }
+        
 
     }
 }
