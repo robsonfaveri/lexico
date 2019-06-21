@@ -6,7 +6,7 @@
     <form method="post" action="{{ path('home') }}">
 
         <div class="form-group">
-            <textarea class="form-control" id="campoMensagem" name="mensagem" placeholder="Digite o codigo" required></textarea>
+            <textarea class="form-control" id="campoMensagem" name="mensagem" placeholder="Digite o codigo" required>{{ mensagem }}</textarea>
         </div>
         <button class="btn btn-success" id="btn" type="submit">Analisar</button>
     </form>
@@ -16,8 +16,9 @@
         </h3>
         <hr class="my-4">
         <h4>Erro no código
-            <strong>"{{error.msg}}"</strong>, caracter de número
-            <strong>{{error.index}}</strong>
+            <strong>"{{error.msg}}"</strong>, linha:
+            <strong>{{error.lineCodeError}}</strong>{% if (not error.currentChar is empty) %}, Caractere:
+            <strong>{{error.currentChar }}</strong> {% endif %}
         </h4>
         <hr class="my-4">
     {% else %}

@@ -10,14 +10,18 @@ class LexicalError extends \Exception {
     private $literal;
     private $index;
     private $comment;
+    private $lineCodeError;
+    private $currentChar;
 
-    public function __construct($msg, $index, $lenght = null, $comment = null, $literal = null) {
+    public function __construct($msg, $index, $lenght = null, $comment = null, $literal = null, $lineCodeError = null, $currentChar = null) {
         parent::__construct();
         $this->msg = $msg;
         $this->index = $index;
         $this->lenght = $lenght;
         $this->literal = $literal;
         $this->comment = $comment;
+        $this->lineCodeError = $lineCodeError;
+        $this->currentChar = $currentChar;
     }
 
     /**
@@ -107,6 +111,38 @@ class LexicalError extends \Exception {
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getLineCodeError() {
+        return $this->lineCodeError;
+    }
+
+    /**
+     * @param null $lineCodeError
+     * @return LexicalError
+     */
+    public function setLineCodeError($lineCodeError) {
+        $this->lineCodeError = $lineCodeError;
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getCurrentChar() {
+        return $this->currentChar;
+    }
+
+    /**
+     * @param null $currentChar
+     * @return LexicalError
+     */
+    public function setCurrentChar($currentChar) {
+        $this->currentChar = $currentChar;
         return $this;
     }
 

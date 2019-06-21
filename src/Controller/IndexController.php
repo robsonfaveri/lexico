@@ -30,10 +30,12 @@ class IndexController extends AbstractController
             } catch(LexicalError $erro){
                 $erroLexical = $erro;
             }
-
-            
         }
-        return $this->render('home/index.html.twig',['listTokens' => $listTokens, 'error' => $erroLexical]);
+        return $this->render('home/index.html.twig',[
+            'listTokens' => $listTokens,
+            'error' => $erroLexical,
+            'mensagem' => $request->request->get('mensagem')
+        ]);
     }
 
 
