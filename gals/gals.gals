@@ -10,7 +10,7 @@ ScannerTable = Full
 Input = Stream
 Parser = SLR
 #RegularDefinitions
-L  : [A-Zaz]
+L  : [A-Za-z]
 D  : [0-9]
 WS  : [\ \t\n\r]
 COMMENT  : "(*" [^ "*" ]* "*)"
@@ -34,9 +34,8 @@ COMMENT  : "(*" [^ "*" ]* "*)"
 "<>"
 "="
 
-
 //tokens
-id : {L} ( {L} | {D} | _ )*
+id :  {L} ( {L} | {D} | _ )*
 inteiro : {D}+
 literal : "*"
 
@@ -73,7 +72,7 @@ writeln = id : "writeln"
 <PROGRAMA>
 <BLOCO>
 <LID>
-<REPIDENT>
+<REPID>
 <DCLCONST>
 <LDCONST>
 <DCLVAR>
@@ -104,9 +103,9 @@ writeln = id : "writeln"
 #Grammar
 <PROGRAMA> ::= program id ";" <BLOCO> "." ;
 <BLOCO> ::= <DCLCONST> <DCLVAR> <DCLPROC> <CORPO> ;
-<LID> ::= id <REPid> ;
-<REPid> ::= î ;
-<REPid> ::= "," id <REPid> ;
+<LID> ::= id <REPID> ;
+<REPID> ::= î ;
+<REPID> ::= "," id <REPID> ;
 <DCLCONST> ::= const id "=" inteiro ";" <LDCONST> ;
 <LDCONST> ::= î ;
 <LDCONST> ::= id "=" inteiro ";" <LDCONST> ;
@@ -133,7 +132,7 @@ writeln = id : "writeln"
 <REPPAR> ::= "," <EXPRESSAO> <REPPAR> ;
 <COMANDO> ::= if <EXPRESSAO> then <COMANDO> <ELSEPARTE> ;
 <ELSEPARTE> ::= î ;
-<ELSEPARTE> ::= ";" else <COMANDO> ;
+<ELSEPARTE> ::=  else <COMANDO> ;
 <COMANDO> ::= while <EXPRESSAO> do <COMANDO> ;
 <COMANDO> ::= repeat <COMANDO> until <EXPRESSAO> ;
 <COMANDO> ::= readln "(" <VARIAVEL> <REPVARIAVEL> ")" ;
@@ -146,9 +145,9 @@ writeln = id : "writeln"
 <REPITEM> ::= î ;
 <REPITEM> ::= "," <ITEMSAIDA> <REPITEM> ;
 <COMANDO> ::= case <EXPRESSAO> of <CONDCASE> end ;
-<CONDCASE> ::= inteiro <RPNUMERAL> ":" <COMANDO> <CONTCASE> ;
-<RPNUMERAL> ::= "," inteiro <RPNUMERAL> ;
-<RPNUMERAL> ::= î ;
+<CONDCASE> ::= inteiro <RPINTEIRO> ":" <COMANDO> <CONTCASE> ;
+<RPINTEIRO> ::= "," inteiro <RPINTEIRO> ;
+<RPINTEIRO> ::= î ;
 <CONTCASE> ::= î ;
 <CONTCASE> ::= ";" <CONDCASE> ;
 <COMANDO> ::= for id ":=" <EXPRESSAO> to <EXPRESSAO> do <COMANDO> ;
