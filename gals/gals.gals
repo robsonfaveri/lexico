@@ -8,12 +8,12 @@ SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Full
 Input = Stream
-Parser = SLR
+Parser = LL
 #RegularDefinitions
 L  : [A-Za-z]
 D  : [0-9]
-WS  : [\ \t\n\r]
-COMMENT  : "(*" [^ "*" ]* "*)"
+WS : [\ \t\n\r] //simbolos especiais e branco
+COMMENT : "(*" [^ "*" ]* "*)"  //comentário
 #Tokens
 //simbolos especiais
 ","
@@ -35,7 +35,7 @@ COMMENT  : "(*" [^ "*" ]* "*)"
 "="
 
 //tokens
-id :  {L} ( {L} | {D} | _ )*
+id : {L} ( {L} | {D} | _ )*
 inteiro : {D}+
 literal : "*"
 
@@ -68,6 +68,7 @@ writeln = id : "writeln"
 //ignorar espaços em branco, caracteres especiais e comentários
  : {WS}*
  :! {COMMENT}
+
 #NonTerminals
 <PROGRAMA>
 <BLOCO>
@@ -90,6 +91,9 @@ writeln = id : "writeln"
 <REPVARIAVEL>
 <ITEMSAIDA>
 <REPITEM>
+<CONDCASE>
+<RPINTEIRO>
+<CONTCASE>
 <EXPRESSAO>
 <REPEXPSIMP>
 <EXPSIMP>
@@ -97,9 +101,6 @@ writeln = id : "writeln"
 <TERMO>
 <REPTERMO>
 <FATOR>
-<CONDCASE>
-<CONTCASE>
-<RPINTEIRO>
 #Grammar
 <PROGRAMA> ::= program id ";" <BLOCO> "." ;
 <BLOCO> ::= <DCLCONST> <DCLVAR> <DCLPROC> <CORPO> ;
@@ -116,7 +117,7 @@ writeln = id : "writeln"
 <DCLVAR> ::= î ;
 <TIPO> ::= integer ;
 <DCLPROC> ::= procedure id <DEFPAR> ";" <BLOCO> ";" <DCLPROC> ;
-<DCLPROC> ::= î;
+<DCLPROC> ::= î ;
 <DEFPAR> ::= î ;
 <DEFPAR> ::= "(" <LID> ":" integer ")" ;
 <CORPO> ::= begin <COMANDO> <REPCOMANDO> end ;
@@ -126,13 +127,13 @@ writeln = id : "writeln"
 <COMANDO> ::= <CORPO> ;
 <COMANDO> ::= î ;
 <COMANDO> ::= call id <PARAMETROS> ;
-<PARAMETROS> ::= î;
+<PARAMETROS> ::= î ;
 <PARAMETROS> ::= "(" <EXPRESSAO> <REPPAR> ")" ;
 <REPPAR> ::= î ;
 <REPPAR> ::= "," <EXPRESSAO> <REPPAR> ;
 <COMANDO> ::= if <EXPRESSAO> then <COMANDO> <ELSEPARTE> ;
 <ELSEPARTE> ::= î ;
-<ELSEPARTE> ::=  else <COMANDO> ;
+<ELSEPARTE> ::= ";" else <COMANDO> ;
 <COMANDO> ::= while <EXPRESSAO> do <COMANDO> ;
 <COMANDO> ::= repeat <COMANDO> until <EXPRESSAO> ;
 <COMANDO> ::= readln "(" <VARIAVEL> <REPVARIAVEL> ")" ;
