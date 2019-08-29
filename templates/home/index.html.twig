@@ -2,31 +2,46 @@
 
 
 {% block body %}
-
+    <h2>Analisador Léxico</h2>
     <form method="post" action="{{ path('home') }}">
 
         <div class="form-group">
-            <textarea class="form-control" name="mensagem" id="campoMensagem" placeholder="Digite o codigo" required></textarea>
+            <textarea class="form-control" id="campoMensagem" name="mensagem" placeholder="Digite o codigo" required>{{ mensagem }}</textarea>
         </div>
-        <button type="submit" class="btn btn-success">Analizar</button>
+        <button class="btn btn-success" id="btn" type="submit">Analisar</button>
     </form>
-    <p><strong>Resultados</strong></p>
-    <table>
-        <thead>
-            <th>CODIGO</th>
-            <th>TOKEN</th>
-            <th>DESCRICAO</th>
-        </thead>
-        <tbody>
+    {% if error != null %}
+        <h3 class="text-danger display-4">
+            ERRO!
+        </h3>
+        <hr class="my-4">
+        <h4>Erro no código
+            <strong>"{{error.msg}}"</strong>, linha:
+            <strong>{{error.lineCodeError}}</strong>{% if (not error.currentChar is empty) %}, Caractere:
+            <strong>{{error.currentChar }}</strong> {% endif %}
+        </h4>
+        <hr class="my-4">
+    {% else %}
+        <h3>
+            <strong>Resultados</strong>
+        </h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <th>CÓDIGO</th>
+                <th>TOKEN</th>
+                <th>DESCRIÇÃO</th>
+            </thead>
+            <tbody>
 
-        {% for token in listTokens %}
-            <tr>
-                <td>{{ token.code }}</td>
-                <td>{{ token.name }}</td>
-                <td>{{ token.description }}</td>
-            </tr>
+                {% for token in listTokens %}
+                    <tr>
+                        <td>{{ token.code }}</td>
+                        <td>{{ token.name }}</td>
+                        <td>{{ token.description }}</td>
+                    </tr>
 
-        {% endfor %}
-        </tbody>
-    </table>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}
