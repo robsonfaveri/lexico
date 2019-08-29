@@ -183,7 +183,7 @@ class AnalizerService
                         $this->index = $i + 1;
                         $this->openLiteral = false;
                         if (strlen($charProcessadas) > 255) throw new LexicalError("Literal Muito Grande", $i - strlen($charProcessadas), strlen($charProcessadas), null, $this->currentLine);
-                        return new Token(strlen($charProcessadas), 21, "Literal");
+                            return new Token($charProcessadas, 21, "Literal");
                     }
                     break;
 
