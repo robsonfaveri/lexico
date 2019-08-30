@@ -37,7 +37,7 @@ class AnalizerService
     }
 
     private function addReservedWords(): void {
-        $this->addWord("program", 22);
+        $this->addWord("program", 37);
         $this->addWord("const", 23);
         $this->addWord("var", 24);
         $this->addWord("procedure", 25);
