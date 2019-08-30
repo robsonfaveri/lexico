@@ -27,7 +27,7 @@ class Constants
     const t_TOKEN_17 = 17; //"<>"
     const t_TOKEN_18 = 18; //"="
     const t_id = 19;
-    const t_consteiro = 20;
+    const t_inteiro = 20;
     const t_literal = 21;
     const t_and = 22;
     const t_begin = 23;
@@ -39,7 +39,7 @@ class Constants
     const t_end = 29;
     const t_for = 30;
     const t_if = 31;
-    const t_consteger = 32;
+    const t_integer = 32;
     const t_not = 33;
     const t_of = 34;
     const t_or = 35;
