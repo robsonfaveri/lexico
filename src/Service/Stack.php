@@ -25,7 +25,7 @@ class Stack
 
     public function getTop()
     {
-        return end($this->itens) ? end($this->itens) : null;
+        return count($this->itens) > 0 ? array_pop($this->itens) : null;
     }
 
     public function removeTop()

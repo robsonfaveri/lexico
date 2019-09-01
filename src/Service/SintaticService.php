@@ -36,15 +36,19 @@ class SintaticService
         $this->stack->add(Constants::DOLLAR);
         $this->stack->add(Constants::EPSILON);
         $this->currentToken = $this->nextToken();
-        while (!$this->verify());
-        dd($this->stack->isEmpty());
+        $retorno = $this->verify();
+        $retorno = $this->verify();
+        $retorno = $this->verify();
+        $retorno = $this->verify();
+        //while (!$this->verify());
+        dd($retorno);
     }
 
     private function verify()
     {
         if ($this->currentToken == null) {
             $position = 0;
-            if (previousToken != null) {
+            if ($this->previousToken != null) {
                 $position = strlen($this->previousToken->getDescription());
             }
             $this->currentToken = new Token("$", Constants::DOLLAR, $position);
@@ -52,16 +56,15 @@ class SintaticService
 
         $x = $this->stack->getTop();
         $a = $this->currentToken->getCode();
-        if ($x == Constants::EPSILON) {
+
+        if ($x === Constants::EPSILON) {
             return false;
         } else if ($this->isTerminal($x)) {
-            //dd("ENIT - " . $x . " - " . $a);
             if ($x == $a) {
-                $this->stack->removeTop();
+
                 if ($this->stack->isEmpty()) {
                     return true;
                 } else {
-
                     $this->previousToken = $this->currentToken;
                     $this->currentToken = $this->nextToken();
                     return false;
@@ -77,6 +80,13 @@ class SintaticService
                 dd(ParserConstant::PARSER_ERROR[$x]);
                 throw new SintaticError(ParserConstant::PARSER_ERROR[$x], $this->currentToken->getName());
             }
+        } else {
+
+            if ($this->stack->isEmpty()) {
+                return true;
+            }
+
+            return false;
         }
     }
 
@@ -84,7 +94,7 @@ class SintaticService
     private function nextToken()
     {
         $token = $this->tokensLexico[$this->contador] ? $this->tokensLexico[$this->contador] : null;
-        $this->contador++;
+        $this->contador = $this->contador + 1;
         return $token;
     }
 
