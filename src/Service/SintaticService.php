@@ -35,7 +35,7 @@ class SintaticService
 
         $this->stack->add(Constants::DOLLAR);
         $this->stack->add(Constants::EPSILON);
-        $this->currentToken = $this->nextToken();        
+        $this->currentToken = $this->nextToken();
         while (!$this->verify());
         dd($this->stack->isEmpty());
     }
@@ -57,6 +57,7 @@ class SintaticService
         } else if ($this->isTerminal($x)) {
             //dd("ENIT - " . $x . " - " . $a);
             if ($x == $a) {
+                $this->stack->removeTop();
                 if ($this->stack->isEmpty()) {
                     return true;
                 } else {
