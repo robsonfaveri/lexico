@@ -34,6 +34,8 @@ class IndexController extends AbstractController
                 $erroLexical = $erro;
             }
             $sintaticService = new SintaticService($listTokens->toArray());
+
+
             $sintaticService->analize();
         }
         return $this->render('home/index.html.twig', [

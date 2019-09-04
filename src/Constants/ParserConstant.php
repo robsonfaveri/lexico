@@ -6,9 +6,9 @@ namespace App\Constants;
 
 class ParserConstant
 {
-    public const START_SIMBOL = 36;
+    public const START_SIMBOL = 46;
 
-    public const FIRST_NON_TERMINAL = 36;
+    public const FIRST_NON_TERMINAL = 46;
 
     public const FIRST_SEMANTIC_ACTION = 77;
 

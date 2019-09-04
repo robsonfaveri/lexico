@@ -33,19 +33,24 @@ class SintaticService
     public function analize()
     {
 
-        $this->stack->add(Constants::DOLLAR);
-        $this->stack->add(Constants::EPSILON);
-        $this->currentToken = $this->nextToken();
-        $retorno = $this->verify();
-        $retorno = $this->verify();
-        $retorno = $this->verify();
-        $retorno = $this->verify();
+        $this->stack->add(ParserConstant::START_SIMBOL);
+
+        do {
+            $this->currentToken = $this->nextToken();
+            dump($this->stack);
+            dump($this->currentToken);
+            $retorno = $this->verify();
+        }
+        while(!$this->stack->isEmpty());
+
         //while (!$this->verify());
         dd($retorno);
     }
 
     private function verify()
     {
+
+
         if ($this->currentToken == null) {
             $position = 0;
             if ($this->previousToken != null) {
@@ -54,34 +59,46 @@ class SintaticService
             $this->currentToken = new Token("$", Constants::DOLLAR, $position);
         }
 
-        $x = $this->stack->getTop();
-        $a = $this->currentToken->getCode();
 
-        if ($x === Constants::EPSILON) {
-            return false;
-        } else if ($this->isTerminal($x)) {
-            if ($x == $a) {
+
+        $branchCode = $this->stack->getTop();
+        $lexicoCode = $this->currentToken->getCode();
+        dump($this->stack);
+        dump($this->currentToken);
+        dump($branchCode);
+        dump($lexicoCode);
+
+  /*    if($branchCode === Constants::EPSILON){
+          $this->stack->removeTop();
+          $this->contador = $this->contador + 1;
+      }else*/
+          if ($this->isTerminal($branchCode)) {
+            if ($branchCode == $lexicoCode) {
 
                 if ($this->stack->isEmpty()) {
-                    return true;
+                    if($lexicoCode == Constants::DOLLAR){
+                        dd('acabou');
+                    }
                 } else {
                     $this->previousToken = $this->currentToken;
-                    $this->currentToken = $this->nextToken();
-                    return false;
+                    $this->stack->removeTop();
+
+                    $this->contador = $this->contador + 1;
                 }
             } else {
-                dd(ParserConstant::PARSER_ERROR[$x], $x, $a);
-                throw new SintaticError(ParserConstant::PARSER_ERROR[$x], $this->currentToken->getName());
+                dd(ParserConstant::PARSER_ERROR[$branchCode], $branchCode, $lexicoCode, $this->contador, $this->stack);
+                throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->currentToken->getName());
             }
-        } else if ($this->isNoTerminal($x)) {
-            if ($this->ordenaRegras($x, $a)) {
+        } else if ($this->isNoTerminal($branchCode)) {
+            if ($this->ordenaRegras($branchCode, $lexicoCode)) {
+
                 return false;
             } else {
-                dd(ParserConstant::PARSER_ERROR[$x]);
-                throw new SintaticError(ParserConstant::PARSER_ERROR[$x], $this->currentToken->getName());
+                dd(ParserConstant::PARSER_ERROR[$branchCode]);
+                throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->currentToken->getName());
             }
         } else {
-
+dd('para');
             if ($this->stack->isEmpty()) {
                 return true;
             }
@@ -94,7 +111,6 @@ class SintaticService
     private function nextToken()
     {
         $token = $this->tokensLexico[$this->contador] ? $this->tokensLexico[$this->contador] : null;
-        $this->contador = $this->contador + 1;
         return $token;
     }
 
@@ -102,8 +118,10 @@ class SintaticService
     private function ordenaRegras($topStack, $tokenInput)
     {
         $p = ParserConstant::PARSER_TABLE[$topStack - ParserConstant::FIRST_NON_TERMINAL][$tokenInput - 1];
+dump('parse'.$p);
         if ($p >= 0) {
             $produtos = ParserConstant::PRODUCTIONS[$p];
+            $this->stack->removeTop();
             for ($i = count($produtos) - 1; $i >= 0; $i--) {
                 $this->stack->add($produtos[$i]);
             }
