@@ -32,7 +32,6 @@ class SintaticService
     //Inicia analise sintatica dos tokens
     public function analize()
     {
-
         $this->stack->add(ParserConstant::START_SIMBOL);
 
         do {
@@ -68,11 +67,11 @@ class SintaticService
         dump($branchCode);
         dump($lexicoCode);
 
-  /*    if($branchCode === Constants::EPSILON){
-          $this->stack->removeTop();
-          $this->contador = $this->contador + 1;
-      }else*/
-          if ($this->isTerminal($branchCode)) {
+        if($branchCode === Constants::EPSILON){
+            $this->stack->removeTop();
+            return false;
+        }
+        else if ($this->isTerminal($branchCode)) {
             if ($branchCode == $lexicoCode) {
 
                 if ($this->stack->isEmpty()) {
@@ -98,7 +97,7 @@ class SintaticService
                 throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->currentToken->getName());
             }
         } else {
-dd('para');
+            dd('para');
             if ($this->stack->isEmpty()) {
                 return true;
             }
@@ -118,7 +117,7 @@ dd('para');
     private function ordenaRegras($topStack, $tokenInput)
     {
         $p = ParserConstant::PARSER_TABLE[$topStack - ParserConstant::FIRST_NON_TERMINAL][$tokenInput - 1];
-dump('parse'.$p);
+        dump('parse'.$p);
         if ($p >= 0) {
             $produtos = ParserConstant::PRODUCTIONS[$p];
             $this->stack->removeTop();

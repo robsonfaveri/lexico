@@ -37,7 +37,7 @@ COMMENT : "(*" [^ "*" ]* "*)"  //comentário
 //tokens
 id : {L} ( {L} | {D} | _ )*
 inteiro : {D}+
-literal : "*"
+literal : \"(.)*\"
 
 //palavras reservadas
 and = id : "and"
@@ -133,7 +133,7 @@ writeln = id : "writeln"
 <REPPAR> ::= "," <EXPRESSAO> <REPPAR> ;
 <COMANDO> ::= if <EXPRESSAO> then <COMANDO> <ELSEPARTE> ;
 <ELSEPARTE> ::= î ;
-<ELSEPARTE> ::= ";" else <COMANDO> ;
+<ELSEPARTE> ::= else <COMANDO> ;
 <COMANDO> ::= while <EXPRESSAO> do <COMANDO> ;
 <COMANDO> ::= repeat <COMANDO> until <EXPRESSAO> ;
 <COMANDO> ::= readln "(" <VARIAVEL> <REPVARIAVEL> ")" ;
