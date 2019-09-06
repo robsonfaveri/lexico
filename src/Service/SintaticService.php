@@ -32,6 +32,7 @@ class SintaticService
     //Inicia analise sintatica dos tokens
     public function analize()
     {
+        $this->stack->add(Constants::DOLLAR);
         $this->stack->add(ParserConstant::START_SIMBOL);
 
         do {
@@ -73,14 +74,14 @@ class SintaticService
         }
         else if ($this->isTerminal($branchCode)) {
             if ($branchCode == $lexicoCode) {
-
+                $this->stack->removeTop();
                 if ($this->stack->isEmpty()) {
                     if($lexicoCode == Constants::DOLLAR){
                         dd('acabou');
                     }
                 } else {
                     $this->previousToken = $this->currentToken;
-                    $this->stack->removeTop();
+
 
                     $this->contador = $this->contador + 1;
                 }
@@ -109,7 +110,7 @@ class SintaticService
     // Funcao retorna proximo token e atualiza contador
     private function nextToken()
     {
-        $token = $this->tokensLexico[$this->contador] ? $this->tokensLexico[$this->contador] : null;
+        $token = count($this->tokensLexico)  > $this->contador ? $this->tokensLexico[$this->contador] : null;
         return $token;
     }
 
@@ -117,7 +118,6 @@ class SintaticService
     private function ordenaRegras($topStack, $tokenInput)
     {
         $p = ParserConstant::PARSER_TABLE[$topStack - ParserConstant::FIRST_NON_TERMINAL][$tokenInput - 1];
-        dump('parse'.$p);
         if ($p >= 0) {
             $produtos = ParserConstant::PRODUCTIONS[$p];
             $this->stack->removeTop();
