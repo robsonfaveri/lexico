@@ -90,16 +90,16 @@ class AnalizerService
                         $this->state = 12;
                     } else if ($this->current == '+') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 12, "Operacao Adicao");
+                        return new Token($this->current, 12, "Operacao Adicao",$this->currentLine);
                     } else if ($this->current == '-') {
                         $this->index = $i + 1;
-                        return new Token('-', 11, "Operacao Subtracao");
+                        return new Token('-', 11, "Operacao Subtracao",$this->currentLine);
                     } else if ($this->current == '*') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 9, "Operador Multiplicacao");
+                        return new Token($this->current, 9, "Operador Multiplicacao",$this->currentLine);
                     } else if ($this->current == '/') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 10, "Operador Divisao");
+                        return new Token($this->current, 10, "Operador Divisao",$this->currentLine);
                     } else if ($this->current == '<') {
                         $charProcessadas .= $this->current;
                         $this->state = 10;
@@ -108,25 +108,25 @@ class AnalizerService
                         $this->state = 5;
                     } else if ($this->current == '=') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 18, "Igual");
+                        return new Token($this->current, 18, "Igual",$this->currentLine);
                     } else if ($this->current == ':') {
                         $charProcessadas .= $this->current;
                         $this->state = 7;
                     } else if ($this->current == '.') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 4, "Ponto");
+                        return new Token($this->current, 4, "Ponto",$this->currentLine);
                     } else if ($this->current == '(') {
                         $charProcessadas .= $this->current;
                         $this->state = 14;
                     } else if ($this->current == ')') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 8, "Fecha Parenteses");
+                        return new Token($this->current, 8, "Fecha Parenteses",$this->currentLine);
                     } else if ($this->current == ',') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 2, "Virgula");
+                        return new Token($this->current, 2, "Virgula",$this->currentLine);
                     } else if ($this->current == ';') {
                         $this->index = $i + 1;
-                        return new Token($this->current, 3, "Ponto e Virgula");
+                        return new Token($this->current, 3, "Ponto e Virgula",$this->currentLine);
                     } else if ($this->current == " " || $this->current == "\t" || $this->current == "\b" || $this->current == "\f") {
                         $this->index = $i + 1;
                         $this->currentChar++;
@@ -147,11 +147,15 @@ class AnalizerService
                     } else {
                         $this->state = 0;
                         $this->index = $i;
-                        $token = new Token($charProcessadas, 19, "Identificador");
+                        $token = new Token($charProcessadas, 19, "Identificador",$this->currentLine);
 
+                        /**
+                         * @var $reservedWord Token
+                         */
                         foreach (self::$reservedWords as $reservedWord) {
                             if ($reservedWord->getName() == $token->getName()) {
-                                $token = $reservedWord;
+                                $token = clone $reservedWord;
+                                $token->setLineToken($this->currentLine);
                                 break;
                             }
                         }
@@ -171,7 +175,7 @@ class AnalizerService
                             throw new LexicalError("Numero fora da escala", $i - strlen($charProcessadas), strlen($charProcessadas), null, $this->currentLine);
                         }
 
-                        return new Token($charProcessadas, 20, "Inteiro");
+                        return new Token($charProcessadas, 20, "Inteiro",$this->currentLine);
                     }
                     break;
 
@@ -183,7 +187,7 @@ class AnalizerService
                         $this->index = $i + 1;
                         $this->openLiteral = false;
                         if (strlen($charProcessadas) > 255) throw new LexicalError("Literal Muito Grande", $i - strlen($charProcessadas), strlen($charProcessadas), null, $this->currentLine);
-                            return new Token($charProcessadas, 21, "Literal");
+                            return new Token($charProcessadas, 21, "Literal",$this->currentLine);
                     }
                     break;
 
@@ -192,10 +196,10 @@ class AnalizerService
                     if ($this->current == '=') {
                         $charProcessadas .= $this->current;
                         $this->index = $i + 1;
-                        return new Token($charProcessadas, 16, "Maior ou Igual");
+                        return new Token($charProcessadas, 16, "Maior ou Igual",$this->currentLine);
                     } else {
                         $this->index = $i;
-                        return new Token($charProcessadas, 14, "Maior");
+                        return new Token($charProcessadas, 14, "Maior",$this->currentLine);
                     }
                     break;
 
@@ -206,10 +210,10 @@ class AnalizerService
                     if ($this->current == '=') {
                         $charProcessadas .= $this->current;;
                         $this->index = $i + 1;
-                        return new Token($charProcessadas, 6, "Atribuicao");
+                        return new Token($charProcessadas, 6, "Atribuicao",$this->currentLine);
                     } else {
                         $this->index = $i;
-                        return new Token($charProcessadas, 5, "Dois Pontos");
+                        return new Token($charProcessadas, 5, "Dois Pontos",$this->currentLine);
                     }
                     break;
 
@@ -218,14 +222,14 @@ class AnalizerService
                     if ($this->current == '=') {
                         $charProcessadas .= $this->current;
                         $this->index = $i + 1;
-                        return new Token($charProcessadas, 15, "Menor ou Igual");
+                        return new Token($charProcessadas, 15, "Menor ou Igual",$this->currentLine);
                     } elseif($this->current == '>') {
                         $charProcessadas .= $this->current;
                         $this->index = $i + 1;
-                        return new Token($charProcessadas, 17, "Diferente");
+                        return new Token($charProcessadas, 17, "Diferente",$this->currentLine);
                     }else{
                         $this->index = $i;
-                        return new Token($charProcessadas, 13, "Menor");
+                        return new Token($charProcessadas, 13, "Menor",$this->currentLine);
                     }
                     break;
 
@@ -237,7 +241,7 @@ class AnalizerService
                     } else {
                         $this->state = 0;
                         $this->index = $i;
-                        return new Token("(", 7, "Abre Parenteses");
+                        return new Token("(", 7, "Abre Parenteses",$this->currentLine);
                     }
                     break;
 

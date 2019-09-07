@@ -10,38 +10,60 @@
         </div>
         <button class="btn btn-success" id="btn" type="submit">Analisar</button>
     </form>
-    {% if error != null %}
+    {% if errorLexico != null %}
         <h3 class="text-danger display-4">
             ERRO!
         </h3>
         <hr class="my-4">
-        <h4>Erro no código
-            <strong>"{{error.msg}}"</strong>, linha:
-            <strong>{{error.lineCodeError}}</strong>{% if (not error.currentChar is empty) %}, Caractere:
-            <strong>{{error.currentChar }}</strong> {% endif %}
+        <h4>Erro Léxico
+            <strong>"{{errorLexico.msg}}"</strong>, linha:
+            <strong>{{errorLexico.lineCodeError}}</strong>{% if (not errorLexico.currentChar is empty) %}, Caractere:
+            <strong>{{errorLexico.currentChar }}</strong> {% endif %}
         </h4>
         <hr class="my-4">
     {% else %}
-        <h3>
-            <strong>Resultados</strong>
-        </h3>
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <th>Token</th>
-                <th>LExema</th>
-                <th>DESCRIÇÃO</th>
-            </thead>
-            <tbody>
 
-                {% for token in listTokens %}
-                    <tr>
-                        <td>{{ token.code }}</td>
-                        <td>{{ token.name }}</td>
-                        <td>{{ token.description }}</td>
-                    </tr>
+        <p class="alert-success">Compilação lexica Finalizada</p>
 
-                {% endfor %}
-            </tbody>
-        </table>
+        <p>
+            <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Ver Tabela de Tokens</a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <th>TOKEN</th>
+                        <th>LEXEMA</th>
+                        <th>DESCRIÇÃO</th>
+                    </thead>
+                    <tbody>
+
+                        {% for token in listTokens %}
+                            <tr>
+                                <td>{{ token.code }}</td>
+                                <td>{{ token.name }}</td>
+                                <td>{{ token.description }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% if errorSintatico != null %}
+            <h3 class="text-danger display-4">
+                ERRO!
+            </h3>
+            <hr class="my-4">
+            <h4>Erro Sintático
+                <strong>"{{errorSintatico.msg}}"</strong>, linha:
+                <strong>{{errorSintatico.lineCodeError}}</strong>{% if (not errorSintatico.currentChar is empty) %}, Caractere:
+                <strong>{{errorSintatico.currentChar }}</strong> {% endif %}
+            </h4>
+            <hr class="my-4">
+        {% else %}
+            <p class="alert-success">Compilação Sintática Finalizada</p>
+        {% endif %}
     {% endif %}
 {% endblock %}

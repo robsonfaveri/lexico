@@ -7,21 +7,15 @@ namespace App\Exception;
 class SintaticError extends \Exception
 {
     private $msg;
-    private $lenght;
-    private $literal;
     private $index;
-    private $comment;
     private $lineCodeError;
     private $currentChar;
 
-    public function __construct($msg, $index, $lenght = null, $comment = null, $literal = null, $lineCodeError = null, $currentChar = null)
+    public function __construct($msg, $index, $lineCodeError = null, $currentChar = null)
     {
         parent::__construct();
         $this->msg = $msg;
         $this->index = $index;
-        $this->lenght = $lenght;
-        $this->literal = $literal;
-        $this->comment = $comment;
         $this->lineCodeError = $lineCodeError;
         $this->currentChar = $currentChar;
     }
@@ -44,41 +38,7 @@ class SintaticError extends \Exception
         return $this;
     }
 
-    /**
-     * @return null
-     */
-    public function getLenght()
-    {
-        return $this->lenght;
-    }
 
-    /**
-     * @param null $lenght
-     * @return LexicalError
-     */
-    public function setLenght($lenght)
-    {
-        $this->lenght = $lenght;
-        return $this;
-    }
-
-    /**
-     * @return null
-     */
-    public function getLiteral()
-    {
-        return $this->literal;
-    }
-
-    /**
-     * @param null $literal
-     * @return LexicalError
-     */
-    public function setLiteral($literal)
-    {
-        $this->literal = $literal;
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -98,23 +58,7 @@ class SintaticError extends \Exception
         return $this;
     }
 
-    /**
-     * @return null
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
 
-    /**
-     * @param null $comment
-     * @return LexicalError
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-        return $this;
-    }
 
     /**
      * @return null

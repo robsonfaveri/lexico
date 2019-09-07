@@ -7,11 +7,14 @@ namespace App\Entity;
     private $description, $name;
     private $code;
     private $reservedWord;
+    private $lineToken;
 
-    public function __construct($name, $code, $description) {
+    public function __construct($name, $code, $description, $lineToken = null) {
         $this->name = $name;
         $this->code = $code;
         $this->description = $description;
+        $this->lineToken = $lineToken;
+
     }
 
     /**
@@ -67,6 +70,24 @@ namespace App\Entity;
         $this->code = $code;
         return $this;
     }
+
+     /**
+      * @return null
+      */
+     public function getLineToken()
+     {
+         return $this->lineToken;
+     }
+
+     /**
+      * @param null $lineToken
+      * @return Token
+      */
+     public function setLineToken($lineToken)
+     {
+         $this->lineToken = $lineToken;
+         return $this;
+     }
 
     /**
      * @return mixed

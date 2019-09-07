@@ -37,20 +37,14 @@ class SintaticService
 
         do {
             $this->currentToken = $this->nextToken();
-            dump($this->stack);
-            dump($this->currentToken);
-            $retorno = $this->verify();
+            $retorno =$this->verify();
         }
         while(!$this->stack->isEmpty());
-
-        //while (!$this->verify());
-        dd($retorno);
+        return $retorno;
     }
 
-    private function verify()
+    protected function verify()
     {
-
-
         if ($this->currentToken == null) {
             $position = 0;
             if ($this->previousToken != null) {
@@ -63,11 +57,6 @@ class SintaticService
 
         $branchCode = $this->stack->getTop();
         $lexicoCode = $this->currentToken->getCode();
-        dump($this->stack);
-        dump($this->currentToken);
-        dump($branchCode);
-        dump($lexicoCode);
-
         if($branchCode === Constants::EPSILON){
             $this->stack->removeTop();
             return false;
@@ -77,7 +66,7 @@ class SintaticService
                 $this->stack->removeTop();
                 if ($this->stack->isEmpty()) {
                     if($lexicoCode == Constants::DOLLAR){
-                        dd('acabou');
+                        return true;
                     }
                 } else {
                     $this->previousToken = $this->currentToken;
@@ -86,19 +75,16 @@ class SintaticService
                     $this->contador = $this->contador + 1;
                 }
             } else {
-                dd(ParserConstant::PARSER_ERROR[$branchCode], $branchCode, $lexicoCode, $this->contador, $this->stack);
-                throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->currentToken->getName());
+                throw new SintaticError( ParserConstant::PARSER_ERROR[$branchCode]. "Não era esperado ". $this->currentToken->getName() ." depois de ". $this->previousToken->getName(), $this->contador,$this->previousToken->getLineToken(), $this->currentToken->getName());
             }
         } else if ($this->isNoTerminal($branchCode)) {
             if ($this->ordenaRegras($branchCode, $lexicoCode)) {
 
                 return false;
             } else {
-                dd(ParserConstant::PARSER_ERROR[$branchCode]);
-                throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->currentToken->getName());
+                throw new SintaticError( ParserConstant::PARSER_ERROR[$branchCode], $this->contador,$this->currentToken->getLineToken(), $this->currentToken->getName());
             }
         } else {
-            dd('para');
             if ($this->stack->isEmpty()) {
                 return true;
             }
@@ -115,7 +101,7 @@ class SintaticService
     }
 
     //Funcao responsavel por verificar as regras e ordenar para comparacao ao token atual
-    private function ordenaRegras($topStack, $tokenInput)
+    protected function ordenaRegras($topStack, $tokenInput)
     {
         $p = ParserConstant::PARSER_TABLE[$topStack - ParserConstant::FIRST_NON_TERMINAL][$tokenInput - 1];
         if ($p >= 0) {
@@ -139,10 +125,5 @@ class SintaticService
     private function isNoTerminal($x)
     {
         return $x >= ParserConstant::FIRST_NON_TERMINAL && $x < ParserConstant::FIRST_SEMANTIC_ACTION;
-    }
-
-    private function isSemanticAction($x)
-    {
-        return $x >= ParserConstant::FIRST_SEMANTIC_ACTION;
     }
 }

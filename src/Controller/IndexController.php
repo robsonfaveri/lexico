@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Token;
+use App\Exception\SintaticError;
 use App\Service\AnalizerService;
 use App\Service\SintaticService;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,7 +23,8 @@ class IndexController extends AbstractController
     {
         set_time_limit(0);
         $listTokens =  new ArrayCollection();
-        $erroLexical = null;
+        $erroLexico = null;
+        $erroSintatico = null;
         if ($request->request->get('mensagem')) {
             $message = $request->request->get('mensagem');
             try {
@@ -30,17 +32,23 @@ class IndexController extends AbstractController
                 while (($token = $analizerService->nextToken()) != null) {
                     $listTokens->add($token);
                 }
-            } catch (LexicalError $erro) {
-                $erroLexical = $erro;
+            } catch (LexicalError $e) {
+                $erroLexico = $e;
             }
-            $sintaticService = new SintaticService($listTokens->toArray());
+
+            try {
+                $sintaticService = new SintaticService($listTokens->toArray());
+                $sintaticService->analize();
+            } catch (SintaticError $e){
+                $erroSintatico = $e;
+            }
 
 
-            $sintaticService->analize();
         }
         return $this->render('home/index.html.twig', [
             'listTokens' => $listTokens,
-            'error' => $erroLexical,
+            'errorLexico' => $erroLexico,
+            'errorSintatico' => $erroSintatico,
             'mensagem' => $request->request->get('mensagem')
         ]);
     }
