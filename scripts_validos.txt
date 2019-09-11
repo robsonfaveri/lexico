@@ -1,0 +1,116 @@
+*------ Scripts Validos -------------------------------------------*
+
+program testeproc1;
+var
+x, y, z :integer;
+procedure P;
+var
+a :integer;
+begin
+	readln(a);
+	if a=x then
+		z:=z+x
+	else begin
+		z:=z-x;
+		call p
+	end
+end;
+begin
+	z:=0;
+	readln(x,y);
+	if x>y then
+		call p 
+	else
+		z:=z+x+y;
+	writeln("string");
+end.
+
+*------ Fim -------------------------------------------------------*
+
+program testeproc2;
+var
+a :integer;
+begin
+	readln(a);
+	if a=x then
+		z:=z+x
+	else begin
+		z:=z-x;
+		call p
+	end
+end.
+
+*------ Fim -------------------------------------------------------*
+
+program testeproc3;
+var
+a :integer;
+begin
+	readln(a);
+	z:=z+y;
+	z:=y+x;
+	if a=x then
+		z:=z+x
+	else begin
+		z:=z-x;
+		call p
+	end
+end.
+
+*------ Fim -------------------------------------------------------*
+
+program testeproc4;
+var
+x, y, z :integer;
+procedure P;
+var
+a :integer;
+begin
+	readln(a);
+	if a=x then
+		z:=z+x
+	else begin
+		z:=z-x;
+		call p;
+               readln(a);
+	 if a=x then
+		z:=z+x
+	 else begin
+		z:=z-x;
+		call p
+	   end;
+	end
+end;
+begin
+	z:=0;
+	readln(x,y);
+	if x>y then
+		call p 
+	else
+		z:=z+x+y;
+	writeln("string");
+end.
+
+*------ Fim -------------------------------------------------------*
+
+program testeproc5;
+var
+a :integer;
+begin
+	readln(a);
+	if a=x then
+		z:=z+x
+	else begin
+           readln(a);
+	  z:=z+y;
+	  z:=y+x;
+	  if a=x then
+		z:=z+x
+	  else begin
+		z:=z-x;
+		call p
+	 end
+	end
+end.
+
+*------ Fim -------------------------------------------------------*
