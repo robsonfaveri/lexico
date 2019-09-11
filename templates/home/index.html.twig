@@ -21,7 +21,7 @@
             <strong>{{errorLexico.currentChar }}</strong> {% endif %}
         </h4>
         <hr class="my-4">
-    {% else %}
+    {% elseif listTokens|length > 0 %}
 
         <p class="alert-success">Compilação lexica Finalizada</p>
 
@@ -57,9 +57,15 @@
             </h3>
             <hr class="my-4">
             <h4>Erro Sintático
-                <strong>"{{errorSintatico.msg}}"</strong>, linha:
-                <strong>{{errorSintatico.lineCodeError}}</strong>{% if (not errorSintatico.currentChar is empty) %}, Caractere:
-                <strong>{{errorSintatico.currentChar }}</strong> {% endif %}
+                <strong>"{{errorSintatico.msg}}"</strong>
+                {% if (not errorSintatico.lineCodeError is empty) %}
+                    , linha:
+                    <strong>{{errorSintatico.lineCodeError}}</strong>
+                {% endif %}
+                {% if (not errorSintatico.currentChar is empty) %}
+                    , Caractere:
+                    <strong>{{errorSintatico.currentChar }}</strong>
+                {% endif %}
             </h4>
             <hr class="my-4">
         {% else %}

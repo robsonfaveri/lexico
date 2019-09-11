@@ -13,13 +13,10 @@ use App\Exception\SintaticError;
 class SintaticService
 {
     private $stack;
-    private $constants;
-    private $parseConstants;
     private $currentToken = null;
     private $previousToken = null;
     private $tokensLexico;
     private $contador;
-    private $semanticAnalyser;
 
     public function __construct($tokens)
     {
@@ -32,6 +29,7 @@ class SintaticService
     //Inicia analise sintatica dos tokens
     public function analize()
     {
+        //È ADICIONADO $(Fim de sentença) E O SIMBOLO INICIAL PARA A PILHA ONDE o S.I. IIRÁ COMEÇAR A DERIVAÇÂO
         $this->stack->add(Constants::DOLLAR);
         $this->stack->add(ParserConstant::START_SIMBOL);
 
@@ -43,8 +41,10 @@ class SintaticService
         return $retorno;
     }
 
+    //METODO ONDE È VERIFICADO OS TOKENS SE ESTÃO VALIDOS CONFORME AS REGRAS SINTATICAS
     protected function verify()
     {
+        //ADICIONADO $ AO ULTIMO TOKEN JÁ DA LISTA DE TOKEN JÀ QUE O LEXICO NÂO RETORNA O MESMO
         if ($this->currentToken == null) {
             $position = 0;
             if ($this->previousToken != null) {
@@ -53,36 +53,45 @@ class SintaticService
             $this->currentToken = new Token("$", Constants::DOLLAR, $position);
         }
 
-
-
         $branchCode = $this->stack->getTop();
         $lexicoCode = $this->currentToken->getCode();
+
         if($branchCode === Constants::EPSILON){
+            //SENDO CADEIA VAZIA O ITEM È REMOVIDO DA PILHA
             $this->stack->removeTop();
             return false;
         }
         else if ($this->isTerminal($branchCode)) {
+
+            //SE TERMINAL E OS CODIGOS DOS TOKENS FOREM IGUAIS É REMOVIDO DA PILHA O TOKEN
             if ($branchCode == $lexicoCode) {
                 $this->stack->removeTop();
+
+                //SE A PILHA ESTÀ VAZIA E O ULTIMO TOKEN VERIFICADO FOI o $ FINALIZA
                 if ($this->stack->isEmpty()) {
                     if($lexicoCode == Constants::DOLLAR){
                         return true;
                     }
                 } else {
                     $this->previousToken = $this->currentToken;
-
-
                     $this->contador = $this->contador + 1;
                 }
             } else {
-                throw new SintaticError( ParserConstant::PARSER_ERROR[$branchCode]. "Não era esperado ". $this->currentToken->getName() ." depois de ". $this->previousToken->getName(), $this->contador,$this->previousToken->getLineToken(), $this->currentToken->getName());
+                throw new SintaticError( ParserConstant::PARSER_ERROR[$branchCode]. " Não era esperado \"". $this->currentToken->getName() ."\" depois de ". $this->previousToken->getName(), $this->contador,$this->previousToken->getLineToken(), $this->currentToken->getName());
             }
         } else if ($this->isNoTerminal($branchCode)) {
+            //SE NÂO FOR TERMINAL IRÁ DERIVAR ATÈ ACHAR O PROXIMO TERMINAL
             if ($this->ordenaRegras($branchCode, $lexicoCode)) {
-
                 return false;
-            } else {
-                throw new SintaticError( ParserConstant::PARSER_ERROR[$branchCode], $this->contador,$this->currentToken->getLineToken(), $this->currentToken->getName());
+            } else {;
+                if($this->contador == 0 ) {
+                    throw new SintaticError('O codigo deve começar com o comando "program"', $this->contador, $this->currentToken->getLineToken());
+                }elseif($branchCode == 59 && $this->currentToken->getLineToken() == null && $this->currentToken->getName() == '$' ){
+                    throw new SintaticError('O codigo deve terminar com o comando "end."', $this->contador);
+                }
+                else{
+                    throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->contador, $this->currentToken->getLineToken(), $this->currentToken->getName());
+                }
             }
         } else {
             if ($this->stack->isEmpty()) {
