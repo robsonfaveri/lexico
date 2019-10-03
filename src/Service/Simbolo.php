@@ -6,36 +6,31 @@ namespace App\Service;
 
 class Simbolo
 {
-    public $id;
     public $nome;
     public $categoria;
     public $nivel;
     public $geralA;
     public $geralB;
+
+    /**
+     * @var Simbolo
+     */
     public $proximo;
 
-    public function __construct($id, $nome, $categoria, $nivel, $geralA, $geralB, $proximo)
+    public function __construct($nome, $categoria, $nivel, $geralA, $geralB)
     {
-        $this->id = $id;
         $this->nome = $nome;
         $this->categoria = $categoria;
         $this->nivel = $nivel;
         $this->geralA = $geralA;
         $this->geralB = $geralB;
-        $this->proximo = $proximo;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+
 
     public function edit($label, $value)
     {
         switch ($label) {
-            case "nome":
-                $this->nome = $value;
-                break;
             case "categoria":
                 $this->categoria = $value;
                 break;
@@ -51,12 +46,124 @@ class Simbolo
             case "proximo":
                 $this->proximo = $value;
                 break;
+            default:
+                return false;
         }
 
         return true;
     }
     public function toString()
     {
-        return "nome:" . $this->nome . ", categoria:" . $this->categoria . ", nivel:" . $this->nivel . ", geralA:" . $this->geralA . ", geralB" . $this->geralB . ", hasProximo:" . $this->proximo ? true : false;
+        return "nome:" . $this->getNome() . ", categoria:" . $this->getCategoria() . ", nivel:" . $this->getNivel() . ", geralA:" . $this->getGeralA() . ", geralB" . $this->getGeralB() . ", hasProximo:" . $this->getProximo()->getNome() ? true : false;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    /**
+     * @param mixed $nome
+     * @return Simbolo
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
+     * @param mixed $categoria
+     * @return Simbolo
+     */
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    /**
+     * @param mixed $nivel
+     * @return Simbolo
+     */
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGeralA()
+    {
+        return $this->geralA;
+    }
+
+    /**
+     * @param mixed $geralA
+     * @return Simbolo
+     */
+    public function setGeralA($geralA)
+    {
+        $this->geralA = $geralA;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGeralB()
+    {
+        return $this->geralB;
+    }
+
+    /**
+     * @param mixed $geralB
+     * @return Simbolo
+     */
+    public function setGeralB($geralB)
+    {
+        $this->geralB = $geralB;
+        return $this;
+    }
+
+    /**
+     * @return Simbolo
+     */
+    public function getProximo()
+    {
+        return $this->proximo;
+    }
+
+    /**
+     * @param Simbolo $proximo
+     * @return Simbolo
+     */
+    public function setProximo(Simbolo $proximo)
+    {
+        $this->proximo = $proximo;
+        return $this;
+    }
+
+
 }
