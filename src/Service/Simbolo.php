@@ -52,9 +52,14 @@ class Simbolo
 
         return true;
     }
-    public function toString()
+
+    /**
+     * @param mixed $toString
+     * @return Simbolo
+     */
+    public function __toString()
     {
-        return "nome:" . $this->getNome() . ", categoria:" . $this->getCategoria() . ", nivel:" . $this->getNivel() . ", geralA:" . $this->getGeralA() . ", geralB" . $this->getGeralB() . ", hasProximo:" . $this->getProximo()->getNome() ? true : false;
+        return "</tr><td>" . $this->nome . " </td><td>" . $this->categoria . " </td><td>" . $this->nivel . " </td><td>" . $this->geralA . "</td><td>" . $this->geralB . "</td><td>" . ($this->getProximo() ? "S" : "N") . "</td></tr>";
     }
 
     /**
@@ -164,6 +169,4 @@ class Simbolo
         $this->proximo = $proximo;
         return $this;
     }
-
-
 }
