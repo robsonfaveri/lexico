@@ -23,7 +23,7 @@ class TabelaSimbolos
 
     public function adiciona($nome, $categoria, $nivel, $geralA, $geralB)
     {
-        $simbolo = $this->search($nome, false);
+        $simbolo = $this->search($nome);
         if (!$simbolo) {
             $hash = $this->hash($nome, self::TABLE_SIZE);
             $this->list[$hash] = new Simbolo($nome, $categoria, $nivel, $geralA, $geralB);
@@ -35,9 +35,9 @@ class TabelaSimbolos
         }
     }
 
-    public function editar($nome, $label, $value)
+    public function editar($nome,$nivel, $label, $value)
     {
-        $simbolo = $this->search($nome, false);
+        $simbolo = $this->searchNameAndNivel($nome, $nivel);
         if ($simbolo) {
             return $simbolo->edit($label, $value);
         } else {
@@ -45,7 +45,30 @@ class TabelaSimbolos
         }
     }
 
-    public function search($nome, $showError = true)
+    public function searchNameAndNivel($nome,$nivel = 0, $showError = false)
+    {
+        $hash = $this->hash($nome, self::TABLE_SIZE);
+        if ($this->list[$hash] != null) {
+            /**
+             * @var Simbolo $simboloAtual
+             */
+            $simboloAtual  = $this->list[$hash];
+            if ($simboloAtual->getNome() == $nome && $simboloAtual->getNivel() == $nivel) {
+                return $simboloAtual;
+            } else {
+                while ($simboloAtual->getProximo() != null) {
+                    $simboloAtual = $simboloAtual->getProximo();
+                    if ($simboloAtual->getNome() == $nome && $simboloAtual->getNivel() == $nivel) {
+                        return $simboloAtual;
+                    }
+                }
+            }
+        } else {
+            return $showError ? $this->errorMessage($nome) : false;
+        }
+    }
+
+    public function search($nome, $showError = false)
     {
         $hash = $this->hash($nome, self::TABLE_SIZE);
         if ($this->list[$hash] != null) {
@@ -64,15 +87,11 @@ class TabelaSimbolos
                 }
             }
         } else {
-            if ($showError) {
-                echo ("<h3>*Simbolo ({$nome}) não foi encontrado na tabela de simbolos.</h3>");
-                //throw new Exception("Simbolo ({$nome}) não foi encontrado na tabela de simbolos.");
-            }
-            return false;
+            return $showError ? $this->errorMessage($nome) : false;
         }
     }
 
-    public function remove($nome)
+    public function remove($nome, $nivel)
     {
         $hash = $this->hash($nome, self::TABLE_SIZE);
         if ($this->list[$hash] != null) {
@@ -80,13 +99,13 @@ class TabelaSimbolos
              * @var Simbolo $simboloAtual
              */
             $simboloAtual  = $this->list[$hash];
-            if ($simboloAtual->getNome() == $nome) {
+            if ($simboloAtual->getNome() == $nome && $simboloAtual->getNivel() == $nivel) {
                 $this->list[$hash] = $simboloAtual->getProximo();
                 return true;
             } else {
                 $simboloAnterior = $simboloAtual;
                 $simboloAtual = $simboloAtual->getProximo();
-                while ($simboloAtual->getNome() != $nome) {
+                while ($simboloAtual->getNome() != $nome  && $simboloAtual->getNivel() == $nivel) {
                     $simboloAnterior = $simboloAtual;
                     $simboloAtual = $simboloAtual->getProximo();
                 }
@@ -112,6 +131,11 @@ class TabelaSimbolos
             }
         }
         echo "</table>";
+    }
+
+    public function errorMessage($nome)
+    {
+        return "<h3>*Simbolo ({$nome}) não foi encontrado na tabela de simbolos.</h3>";
     }
 
     private function hash($key, $tableSize)

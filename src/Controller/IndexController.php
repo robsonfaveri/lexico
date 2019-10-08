@@ -59,8 +59,8 @@ class IndexController extends AbstractController
         $tableSimbolo = new TabelaSimbolos(3001);
         echo "Adicionado 10 Simbolos";
         //Adiciona simbolos
-        $tableSimbolo->adiciona('var1', 'var', 0, 'geral1', 'geral2');
-        $tableSimbolo->adiciona('var2', 'procedure', 0, 'geral1', 'geral2');
+        $tableSimbolo->adiciona('aux1', 'var', 0, 'geral1', 'geral2');
+        $tableSimbolo->adiciona('aux2', 'procedure', 0, 'geral1', 'geral2');
         $tableSimbolo->adiciona('a', 'var', 0, 'geral1', 'geral2');
         $tableSimbolo->adiciona('a', 'var', 1, 'geral1', 'geral2');
         $tableSimbolo->adiciona('b', 'var', 0, 'geral1', 'geral2');
@@ -76,26 +76,31 @@ class IndexController extends AbstractController
 
         echo "<br>Editado 5 Simbolos";
         //Edita simbolos
-        $tableSimbolo->editar('teste', 'categoria', 'const');
-        $tableSimbolo->editar('b', 'nivel', '2');
-        $tableSimbolo->editar('d', 'nivel', '1');
-        $tableSimbolo->editar('ind2', 'categoria', 'const');
+        $tableSimbolo->editar('teste',0,  'geralA', 'geralA-alterado');
+        $tableSimbolo->editar('b', 0,'geralB', 'geralB-alterado');
+        $tableSimbolo->editar('d', 0,'geralA', 'geralA-alterado');
+        $tableSimbolo->editar('ind2',0, 'geralB', 'geralB-alterado');
+        $tableSimbolo->editar('aux1', 0,'geralA', 'geralA-alterado');
         //Mostra tabela atual
         $tableSimbolo->showList();
 
         echo "<br>Removido 3 Simbolos";
 
         //Remove simbolos
-        $tableSimbolo->remove('ind1');
-        $tableSimbolo->remove('d');
-        $tableSimbolo->remove('c');
+        $tableSimbolo->remove('ind1',0);
+        $tableSimbolo->remove('d',0);
+        $tableSimbolo->remove('c',0);
         //Mostra tabela atual
         $tableSimbolo->showList();
 
-        //Busca simbolo inexistente
-        //$tableSimbolo->search('var');
 
-        dump($tableSimbolo->search('var1'));
+        echo "<br>Busca por Simbolo inexistente";
+        //Busca simbolo inexistente
+        print_r($tableSimbolo->searchNameAndNivel('c',0,true));
+
+        echo "<br>Busca por 3 Simbolos existentes";
+
+        dump($tableSimbolo->search('aux1'));
         dump($tableSimbolo->search('a'));
         dump($tableSimbolo->search('ind2'));
 
