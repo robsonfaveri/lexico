@@ -9,8 +9,8 @@ use Exception;
 
 class TabelaSimbolos
 {
-
-    const TABLE_SIZE = 5;
+    //Tamanho da tabela de simbolos
+    const TABLE_SIZE = 3011;
 
 
     public $list;
@@ -21,6 +21,7 @@ class TabelaSimbolos
         $this->list = new \SplFixedArray(self::TABLE_SIZE);
     }
 
+    //adiciona simbolo a tabela
     public function adiciona($nome, $categoria, $nivel, $geralA, $geralB)
     {
         $hash = $this->hash($nome, self::TABLE_SIZE);
@@ -36,6 +37,7 @@ class TabelaSimbolos
         }
     }
 
+    //edita simbolo da tabela
     public function editar($nome,$nivel, $label, $value)
     {
         $simbolo = $this->searchNameAndNivel($nome, $nivel);
@@ -46,6 +48,7 @@ class TabelaSimbolos
         }
     }
 
+    //busca por nome e simbolo da tabela, pode ser usado pra buscar simbolos por nome e nivel especifico em uma posição da tabela
     public function searchNameAndNivel($nome,$nivel = 0, $showError = false)
     {
         $hash = $this->hash($nome, self::TABLE_SIZE);
@@ -74,6 +77,7 @@ class TabelaSimbolos
 
     }
 
+    //busca por nome, irá encontrar o primeiro simbolo do hash passado
     public function search($nome, $showError = false)
     {
         $hash = $this->hash($nome, self::TABLE_SIZE);
@@ -98,6 +102,7 @@ class TabelaSimbolos
         }
     }
 
+    //remove simbolo da tabela
     public function remove($nome, $nivel)
     {
         $hash = $this->hash($nome, self::TABLE_SIZE);
@@ -149,6 +154,7 @@ class TabelaSimbolos
         return "<h3>*Simbolo ({$nome}) não foi encontrado na tabela de simbolos.</h3>";
     }
 
+    //tabela hash (*ord* - retorna o numero da tabela ASCII)
     private function hash($key, $tableSize)
     {
         $hashVal = 0;
