@@ -164,7 +164,7 @@ class Simbolo
      * @param Simbolo $proximo
      * @return Simbolo
      */
-    public function setProximo(Simbolo $proximo)
+    public function setProximo (Simbolo $proximo = null)
     {
         $this->proximo = $proximo;
         return $this;

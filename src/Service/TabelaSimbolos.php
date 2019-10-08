@@ -10,21 +10,22 @@ use Exception;
 class TabelaSimbolos
 {
 
-    const TABLE_SIZE = 3011;
+    const TABLE_SIZE = 5;
 
 
     public $list;
 
 
-    public function __construct($size = null)
+    public function __construct()
     {
-        $this->list = new \SplFixedArray($size ? $size : self::TABLE_SIZE);
+        $this->list = new \SplFixedArray(self::TABLE_SIZE);
     }
 
     public function adiciona($nome, $categoria, $nivel, $geralA, $geralB)
     {
-        $simbolo = $this->search($nome);
-        if (!$simbolo) {
+        $hash = $this->hash($nome, self::TABLE_SIZE);
+        $simbolo = $this->list[$hash];
+        if ($simbolo == null) {
             $hash = $this->hash($nome, self::TABLE_SIZE);
             $this->list[$hash] = new Simbolo($nome, $categoria, $nivel, $geralA, $geralB);
         } else {
@@ -53,7 +54,10 @@ class TabelaSimbolos
              * @var Simbolo $simboloAtual
              */
             $simboloAtual  = $this->list[$hash];
+
+
             if ($simboloAtual->getNome() == $nome && $simboloAtual->getNivel() == $nivel) {
+
                 return $simboloAtual;
             } else {
                 while ($simboloAtual->getProximo() != null) {
@@ -63,9 +67,11 @@ class TabelaSimbolos
                     }
                 }
             }
-        } else {
-            return $showError ? $this->errorMessage($nome) : false;
         }
+
+        return $showError ? $this->errorMessage($nome) : false;
+
+
     }
 
     public function search($nome, $showError = false)
@@ -76,6 +82,7 @@ class TabelaSimbolos
              * @var Simbolo $simboloAtual
              */
             $simboloAtual  = $this->list[$hash];
+
             if ($simboloAtual->getNome() == $nome) {
                 return $simboloAtual;
             } else {
@@ -99,18 +106,22 @@ class TabelaSimbolos
              * @var Simbolo $simboloAtual
              */
             $simboloAtual  = $this->list[$hash];
+
             if ($simboloAtual->getNome() == $nome && $simboloAtual->getNivel() == $nivel) {
                 $this->list[$hash] = $simboloAtual->getProximo();
                 return true;
             } else {
+
                 $simboloAnterior = $simboloAtual;
                 $simboloAtual = $simboloAtual->getProximo();
-                while ($simboloAtual->getNome() != $nome  && $simboloAtual->getNivel() == $nivel) {
+
+                while ($simboloAtual->getNome() != $nome  && $simboloAtual->getNivel() != $nivel) {
                     $simboloAnterior = $simboloAtual;
                     $simboloAtual = $simboloAtual->getProximo();
+
                 }
                 if ($simboloAtual != null) {
-                    $simboloAnterior->setProximo($simboloAtual);
+                    $simboloAnterior->setProximo($simboloAtual->getProximo());
                     return true;
                 } else {
                     return false;
