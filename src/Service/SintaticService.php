@@ -17,12 +17,14 @@ class SintaticService
     private $previousToken = null;
     private $tokensLexico;
     private $contador;
+    private $semanticService;
 
-    public function __construct($tokens)
+    public function __construct($tokens, SemanticService $semanticService)
     {
         $this->stack = new Stack();
         $this->contador = 0;
         $this->tokensLexico = $tokens;
+        $this->semanticService = $semanticService;
     }
 
 
@@ -93,7 +95,11 @@ class SintaticService
                     throw new SintaticError(ParserConstant::PARSER_ERROR[$branchCode], $this->contador, $this->currentToken->getLineToken(), $this->currentToken->getName());
                 }
             }
-        } else {
+        } elseif($this->isSemantic($branchCode)){
+                $valorSemantico = $branchCode - ParserConstant::FIRST_SEMANTIC_ACTION;
+                $this->semanticService->exec($valorSemantico);
+
+        }else{
             if ($this->stack->isEmpty()) {
                 return true;
             }
@@ -134,5 +140,10 @@ class SintaticService
     private function isNoTerminal($x)
     {
         return $x >= ParserConstant::FIRST_NON_TERMINAL && $x < ParserConstant::FIRST_SEMANTIC_ACTION;
+    }
+
+    private function isSemantic($x)
+    {
+        return  $x > ParserConstant::FIRST_SEMANTIC_ACTION;
     }
 }

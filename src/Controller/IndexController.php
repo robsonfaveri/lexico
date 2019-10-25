@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Token;
 use App\Exception\SintaticError;
 use App\Service\AnalizerService;
+use App\Service\SemanticService;
 use App\Service\SintaticService;
 use App\Service\TabelaSimbolos;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -37,7 +38,8 @@ class IndexController extends AbstractController
             }
 
             try {
-                $sintaticService = new SintaticService($listTokens->toArray());
+                $semanticService = new SemanticService();
+                $sintaticService = new SintaticService($listTokens->toArray(),$semanticService);
                 $sintaticService->analize();
             } catch (SintaticError $e) {
                 $erroSintatico = $e;
