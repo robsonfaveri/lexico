@@ -4,12 +4,14 @@
 namespace App\Service;
 
 
+use function Couchbase\defaultDecoder;
+
 class SemanticService
 {
 
     private $pilha;
 
-    private $tabelaSimbolo;
+    public $tabelaSimbolo;
 
     private $areaInstrucoes;
 
@@ -29,21 +31,42 @@ class SemanticService
 
     private $lit;
 
-    public static $maxInst=1000;
+    public static $maxInst=100;
 
     public static $maxList=30;
 
+    private $lastHash;
+
+    private $tipoIdentificador;
 
 
-    public function exec($branchCode)
+
+    public function exec($branchCode,$currentToken,$previousToken)
     {
         switch ($branchCode){
+
             case  100 :
                 $this->semanticAction100();
                 break;
             case 101:
                 $this->semanticAction101();
                 break;
+            case 102:
+                $this->semanticAction102();
+                break;
+            case 104:
+                $this->semanticAction104($previousToken);
+                break;
+            case 105:
+                $this->semanticAction105($previousToken);
+                break;
+            case 106:
+                $this->semanticAction106($previousToken);
+                break;
+            case 107:
+                $this->semanticAction107();
+                break;
+            default:  dump($branchCode);dump($this->areaInstrucoes);die;
                 
 
 
@@ -54,7 +77,7 @@ class SemanticService
         $this->pilha = new Stack();
         $this->tabelaSimbolo = new TabelaSimbolos();
         $this->areaLiterais = new AreaLiterais();
-        $this->areaInstrucoes = new AreaInstrucoes();
+        $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
         $this->nivelAtual = 0;
         $this->ptLivre = 1;
         $this->escopo[0] = 1;
@@ -62,12 +85,57 @@ class SemanticService
         $this->deslocamento = 3;
         $this->lc = 1;
         $this->lit = 1;
-        self::inicializaAI($this->areaLiterais);
-        self::inicializaAL($this->areaInstrucoes);
+        self::inicializaAI($this->areaInstrucoes);
+        self::inicializaAL($this->areaLiterais);
     }
 
     public function semanticAction101(){
         $this->incluirAI($this->areaInstrucoes,AreaInstrucoes::PARA,0,0);
+        dump($this->areaInstrucoes);
+    }
+
+    public function semanticAction102(){
+        $this->deslocamento = 3;
+        $operacao2 = $this->deslocamento + $this->numeroVariaveis;
+
+        $this->incluirAI($this->areaInstrucoes,AreaInstrucoes::AMEM,0, $operacao2);
+    }
+
+    public function semanticAction104($previousToken){
+        $tokenName = $previousToken->getName();
+        $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
+
+
+            if($this->tipoIdentificador == 'VAR') {
+                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'VAR', $this->nivelAtual, $this->deslocamento, 0);
+                $this->numeroVariaveis++;
+                $this->deslocamento++;
+            }else{
+                die('parametro');
+            }
+
+    }
+
+    public function semanticAction105($previousToken){
+        $tokenName = $previousToken->getName();
+
+        $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
+        if($exist){
+            die('erro 105');
+        }else{
+           $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'CONST', $this->nivelAtual, 0, 0);
+        }
+    }
+
+    public function semanticAction106($previousToken){
+        $tokenName = $previousToken->getName();
+        $constante = $this->tabelaSimbolo->list[$this->lastHash];
+        $constante->setGeralA($tokenName);
+    }
+
+    public function semanticAction107(){
+        $this->tipoIdentificador = 'VAR';
+        $this->numeroVariaveis = 0;
     }
 
     /**

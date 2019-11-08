@@ -6,7 +6,9 @@ namespace App\Service;
 
 class AreaInstrucoes{
 
+    const AMEM = 24;
     const PARA = 26;
+
     public $AI = [];
     public $LC;
 
@@ -14,8 +16,8 @@ class AreaInstrucoes{
          * Construtor sem parâmetros.
          * Todos os atributos são inicializados com valores padrões.
          */
-    public function __construct(){
-        for($i=0; $i<1000; $i++){
+    public function __construct($maxInst){
+        for($i=0; $i<$maxInst; $i++){
          $this->AI[$i]=new Tipos();
         }
     }

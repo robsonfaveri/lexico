@@ -10,7 +10,7 @@ use Exception;
 class TabelaSimbolos
 {
     //Tamanho da tabela de simbolos
-    const TABLE_SIZE = 3011;
+    const TABLE_SIZE = 111;
 
 
     public $list;
@@ -35,6 +35,8 @@ class TabelaSimbolos
             }
             $simbolo->setProximo(new Simbolo($nome, $categoria, $nivel, $geralA, $geralB));
         }
+        return $hash;
+
     }
 
     //edita simbolo da tabela
