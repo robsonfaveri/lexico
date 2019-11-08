@@ -4,7 +4,6 @@
 namespace App\Service;
 
 
-use function Couchbase\defaultDecoder;
 
 class SemanticService
 {
@@ -39,6 +38,10 @@ class SemanticService
 
     private $tipoIdentificador;
 
+    private $possuiParametro;
+
+    private $numeroParametro;
+
 
 
     public function exec($branchCode,$currentToken,$previousToken)
@@ -65,6 +68,9 @@ class SemanticService
                 break;
             case 107:
                 $this->semanticAction107();
+                break;
+            case 108:
+                $this->semanticAction108($previousToken);
                 break;
             default:  dump($branchCode);dump($this->areaInstrucoes);die;
                 
@@ -136,6 +142,22 @@ class SemanticService
     public function semanticAction107(){
         $this->tipoIdentificador = 'VAR';
         $this->numeroVariaveis = 0;
+    }
+
+    public function semanticAction108($previousToken){
+        $tokenName = $previousToken->getName();
+
+        $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
+        if($exist){
+            die('erro 108');
+        }else{
+            $this->deslocamento = 3;
+            $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'PROC', $this->nivelAtual, 0, 0);
+            $this->nivelAtual++;
+            $this->possuiParametro = false;
+            $this->numeroParametro = 0;
+        }
+
     }
 
     /**
