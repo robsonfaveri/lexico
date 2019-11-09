@@ -6,6 +6,7 @@ namespace App\Service;
 
 class AreaInstrucoes{
 
+    const DSVS = 19;
     const AMEM = 24;
     const PARA = 26;
 

@@ -10,8 +10,10 @@ class SemanticService
 
     private $pilha;
 
+    /** @var TabelaSimbolos $tabelaSimbolo */
     public $tabelaSimbolo;
 
+    /** @var AreaInstrucoes $areaInstrucoes */
     private $areaInstrucoes;
 
     private $areaLiterais;
@@ -39,6 +41,12 @@ class SemanticService
     private $tipoIdentificador;
 
     private $possuiParametro;
+
+    /** @var Stack $pilhaParametro  */
+    private $pilhaParametro;
+
+    /** @var Stack $pilhaParametro  */
+    private $pilhaProcedures;
 
     private $numeroParametro;
 
@@ -72,6 +80,12 @@ class SemanticService
             case 108:
                 $this->semanticAction108($previousToken);
                 break;
+            case 109:
+                $this->semanticAction109($previousToken);
+                break;
+            case 111:
+                $this->semanticAction111();
+                break;
             default:  dump($branchCode);dump($this->areaInstrucoes);die;
                 
 
@@ -81,6 +95,8 @@ class SemanticService
 
     private function semanticAction100(){
         $this->pilha = new Stack();
+        $this->pilhaParametro = new Stack();
+        $this->pilhaProcedures = new Stack();
         $this->tabelaSimbolo = new TabelaSimbolos();
         $this->areaLiterais = new AreaLiterais();
         $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
@@ -111,13 +127,16 @@ class SemanticService
         $tokenName = $previousToken->getName();
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
 
-
             if($this->tipoIdentificador == 'VAR') {
                 $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'VAR', $this->nivelAtual, $this->deslocamento, 0);
                 $this->numeroVariaveis++;
                 $this->deslocamento++;
+            }elseif($this->tipoIdentificador == 'PAR'){
+                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'PAR', $this->nivelAtual, 0, 0);
+                $this->numeroParametro++;
+                $this->pilhaParametro->add($this->tabelaSimbolo->list[$this->lastHash]);
             }else{
-                die('parametro');
+                die('erro 104');
             }
 
     }
@@ -151,13 +170,37 @@ class SemanticService
         if($exist){
             die('erro 108');
         }else{
-            $this->deslocamento = 3;
             $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'PROC', $this->nivelAtual, 0, 0);
             $this->nivelAtual++;
             $this->possuiParametro = false;
             $this->numeroParametro = 0;
+            $this->deslocamento = 3;
         }
 
+    }
+
+    public function semanticAction109($previousToken){
+        if($this->possuiParametro){
+            $procedure = $this->tabelaSimbolo->list[$this->lastHash];
+            $procedure->setGeralB($this->numeroParametro);
+
+            for ($i = 1; $i <= $this->numeroParametro; $i++) {
+
+                /** @var Simbolo $parametro */
+                $parametro = $this->pilhaParametro->getTop();
+                $parametro->setGeralA( -($this->numeroParametro - $i));
+            }
+
+            $this->incluirAI($this->areaInstrucoes,AreaInstrucoes::DSVS,0,0);
+            $this->pilhaProcedures->add($this->areaInstrucoes->LC);
+            $this->pilhaProcedures->add($this->numeroParametro);
+        }
+
+    }
+
+    public function semanticAction111(){
+            $this->tipoIdentificador = 'PAR';
+            $this->possuiParametro = true;
     }
 
     /**
