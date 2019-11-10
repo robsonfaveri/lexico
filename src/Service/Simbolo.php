@@ -12,6 +12,12 @@ class Simbolo
     public $geralA;
     public $geralB;
 
+    const VARIAVEL = 'VARIAVEL';
+    const CONSTANTE = 'CONSTANTE';
+    const PARAMETRO = 'PARAMETRO';
+    const PROCEDURE = 'PROCEDURE';
+
+
     /**
      * @var Simbolo
      */

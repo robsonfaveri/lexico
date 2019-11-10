@@ -127,12 +127,12 @@ class SemanticService
         $tokenName = $previousToken->getName();
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
 
-            if($this->tipoIdentificador == 'VAR') {
-                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'VAR', $this->nivelAtual, $this->deslocamento, 0);
+            if($this->tipoIdentificador == Simbolo::VARIAVEL) {
+                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::VARIAVEL, $this->nivelAtual, $this->deslocamento, 0);
                 $this->numeroVariaveis++;
                 $this->deslocamento++;
-            }elseif($this->tipoIdentificador == 'PAR'){
-                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'PAR', $this->nivelAtual, 0, 0);
+            }elseif($this->tipoIdentificador == Simbolo::PARAMETRO){
+                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PARAMETRO, $this->nivelAtual, 0, 0);
                 $this->numeroParametro++;
                 $this->pilhaParametro->add($this->tabelaSimbolo->list[$this->lastHash]);
             }else{
@@ -148,7 +148,7 @@ class SemanticService
         if($exist){
             die('erro 105');
         }else{
-           $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'CONST', $this->nivelAtual, 0, 0);
+           $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::CONSTANTE, $this->nivelAtual, 0, 0);
         }
     }
 
@@ -159,7 +159,7 @@ class SemanticService
     }
 
     public function semanticAction107(){
-        $this->tipoIdentificador = 'VAR';
+        $this->tipoIdentificador = Simbolo::VARIAVEL;
         $this->numeroVariaveis = 0;
     }
 
@@ -170,7 +170,7 @@ class SemanticService
         if($exist){
             die('erro 108');
         }else{
-            $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, 'PROC', $this->nivelAtual, 0, 0);
+            $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PROCEDURE, $this->nivelAtual, 0, 0);
             $this->nivelAtual++;
             $this->possuiParametro = false;
             $this->numeroParametro = 0;
@@ -179,7 +179,7 @@ class SemanticService
 
     }
 
-    public function semanticAction109($previousToken){
+    public function semanticAction109(){
         if($this->possuiParametro){
             $procedure = $this->tabelaSimbolo->list[$this->lastHash];
             $procedure->setGeralB($this->numeroParametro);
@@ -199,7 +199,7 @@ class SemanticService
     }
 
     public function semanticAction111(){
-            $this->tipoIdentificador = 'PAR';
+            $this->tipoIdentificador = Simbolo::PARAMETRO;
             $this->possuiParametro = true;
     }
 
