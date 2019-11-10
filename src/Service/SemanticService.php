@@ -50,6 +50,12 @@ class SemanticService
 
     private $numeroParametro;
 
+    private $nivelVariavel;
+
+    private $deslocamentoVariavel;
+
+    private $contexto;
+
 
 
     public function exec($branchCode,$currentToken,$previousToken)
@@ -81,10 +87,16 @@ class SemanticService
                 $this->semanticAction108($previousToken);
                 break;
             case 109:
-                $this->semanticAction109($previousToken);
+                $this->semanticAction109();
                 break;
             case 111:
                 $this->semanticAction111();
+                break;
+            case 114:
+                $this->semanticAction114($previousToken,$currentToken);
+                break;
+            case 156:
+                $this->semanticAction156();
                 break;
             default:  dump($branchCode);dump($this->areaInstrucoes);die;
                 
@@ -113,7 +125,6 @@ class SemanticService
 
     public function semanticAction101(){
         $this->incluirAI($this->areaInstrucoes,AreaInstrucoes::PARA,0,0);
-        dump($this->areaInstrucoes);
     }
 
     public function semanticAction102(){
@@ -201,6 +212,25 @@ class SemanticService
     public function semanticAction111(){
             $this->tipoIdentificador = Simbolo::PARAMETRO;
             $this->possuiParametro = true;
+    }
+
+    public function semanticAction114($previousToken,$currentToken){
+        $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
+
+        if($simbolo != null){
+            if($simbolo->getCategoria() == Simbolo::VARIAVEL){
+                $this->nivelVariavel = $simbolo->getNivel();
+                $this->deslocamentoVariavel = $simbolo->getGeralA();
+            }else{
+                dd('erro 114 não é variavel');
+            }
+        }else{
+            dd('erro 114 não declarado');
+        }
+    }
+
+    public function semanticAction156(){
+        $this->contexto = 'expressao';
     }
 
     /**
