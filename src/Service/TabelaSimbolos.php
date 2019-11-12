@@ -139,6 +139,16 @@ class TabelaSimbolos
         }
     }
 
+    //remove simbolo da tabela
+    public function removeByNivel($nivel)
+    {
+        foreach ($this->list as $key=>$simbol) {
+            if($simbol && $simbol->getNivel() == $nivel){
+                $this->list[$key]=null;
+            }
+        }
+    }
+
     public function showList()
     {
         echo "<br><h4>Tabela Simbolos</h4>";

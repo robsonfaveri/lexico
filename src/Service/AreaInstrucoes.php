@@ -6,6 +6,7 @@ namespace App\Service;
 
 class AreaInstrucoes{
 
+    const RETU = 1;
     const CRVL = 2;
     const CRCT = 3;
     const ARMZ = 4;
