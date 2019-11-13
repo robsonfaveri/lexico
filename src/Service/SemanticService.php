@@ -50,8 +50,13 @@ class SemanticService
 
     private $numeroParametro;
 
+    private $numeroParametroEfetivo;
+
     /** @var Simbolo $identificadorAtual */
     private $identificadorAtual;
+
+    /** @var Simbolo $identificadorAtual */
+    private $identificadorForAtual;
 
     private $contexto;
 
@@ -100,8 +105,29 @@ class SemanticService
             case 115:
                 $this->semanticAction115();
                 break;
+            case 116:
+                $this->semanticAction116($previousToken);
+                break;
+            case 117:
+                $this->semanticAction117();
+                break;
+            case 118:
+                $this->semanticAction118();
+                break;
+            case 128:
+                $this->semanticAction128();
+                break;
             case 129:
                 $this->semanticAction129($previousToken, $currentToken);
+                break;
+            case 130:
+                $this->semanticAction130($previousToken);
+                break;
+            case 137:
+                $this->semanticAction137($previousToken);
+                break;
+            case 138:
+                $this->semanticAction138();
                 break;
             case 147:
                 $this->semanticAction147();
@@ -228,6 +254,7 @@ class SemanticService
             $this->possuiParametro = false;
             $this->numeroParametro = 0;
             $this->deslocamento = 3;
+            $this->numeroVariaveis = 0;
         }
     }
 
@@ -290,6 +317,40 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $this->identificadorAtual->getNivel(), $this->identificadorAtual->getGeralA());
     }
 
+    public function semanticAction116($previousToken)
+    {
+        $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
+
+        if ($simbolo != null) {
+            if ($simbolo->getCategoria() == Simbolo::PROCEDURE) {
+                $this->identificadorAtual = $simbolo;
+            } else {
+                dd('erro 116 não é procedure');
+            }
+        } else {
+            dd('erro 116 não declarado');
+        }
+    }
+
+    public function semanticAction117()
+    {
+       if($this->numeroParametro != $this->numeroParametroEfetivo){
+           die('erro 117');
+       }else{
+           $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CALL, $this->identificadorAtual->getNivel(), $this->identificadorAtual->getGeralA());
+
+       }
+    }
+
+    public function semanticAction118()
+    {
+        $this->numeroParametroEfetivo++;
+    }
+
+    public function semanticAction128()
+    {
+        $this->contexto = 'readln';
+    }
 
     public function semanticAction129($previousToken, $currentToken)
     {
@@ -311,17 +372,45 @@ class SemanticService
                     dd('erro 129 simbolo e procedure');
                 } else {
                     if ($simbolo->getCategoria() == Simbolo::CONSTANTE) {
-                        dump(129);
-                        dd($previousToken);
-                        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $previousToken);
+                        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $simbolo->getGeralA());
                     } else {
-                        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRVL, 0, $this->deslocamento);
+                        $d_nivel = $this->nivelAtual-$simbolo->getNivel();
+                        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRVL, $d_nivel, $simbolo->getGeralA());
                     }
                 }
             } else {
                 dd('erro 129 nao existe variavel');
             }
         }
+    }
+
+    public function semanticAction130($previousToken)
+    {
+        self::incluirAL($this->areaLiterais, $previousToken->getName());
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPRL, 0, $this->areaLiterais->LIT-1);
+
+    }
+
+    public function semanticAction137($previousToken)
+    {
+        $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
+
+        if ($simbolo != null) {
+            if ($simbolo->getCategoria() == Simbolo::VARIAVEL) {
+                $this->identificadorForAtual = $simbolo;
+            } else {
+                dd('erro 137 não é variavel');
+            }
+        } else {
+            dd('erro 137 não declarado');
+        }
+    }
+
+    public function semanticAction138()
+    {
+        $operacao1 = $this->nivelAtual - $this->identificadorForAtual->getNivel();
+        $operacao2 = $this->identificadorForAtual->getGeralA();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
     }
 
     public function semanticAction147()
@@ -361,8 +450,7 @@ class SemanticService
 
     public function semanticAction154($previousToken)
     {
-        dump(154);dd($previousToken);
-        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $previousToken);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $previousToken->getName());
 
     }
 

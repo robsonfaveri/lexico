@@ -27,8 +27,8 @@ class AreaInstrucoes{
     const DSVS = 19;
     const DSVF = 20;
     const LEIT = 21;
-    const IMPR = 21;
-    const IMPRL = 21;
+    const IMPR = 22;
+    const IMPRL = 23;
     const AMEM = 24;
     const CALL = 25;
     const PARA = 26;
