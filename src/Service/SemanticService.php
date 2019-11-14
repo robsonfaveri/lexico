@@ -8,6 +8,7 @@ namespace App\Service;
 class SemanticService
 {
 
+    /** @var Stack $pilha  */
     private $pilha;
 
     /** @var TabelaSimbolos $tabelaSimbolo */
@@ -38,6 +39,8 @@ class SemanticService
 
     private $lastHash;
 
+    private $lastProcedure;
+
     private $tipoIdentificador;
 
     private $possuiParametro;
@@ -47,6 +50,9 @@ class SemanticService
 
     /** @var Stack $pilhaParametro  */
     private $pilhaProcedures;
+
+    /** @var Stack $pilhaFor  */
+    private $pilhaFor;
 
     private $numeroParametro;
 
@@ -64,9 +70,10 @@ class SemanticService
 
     public function exec($branchCode, $currentToken, $previousToken)
     {
+       // dump($branchCode);
         switch ($branchCode) {
 
-            case  100:
+            case 100:
                 $this->semanticAction100();
                 break;
             case 101:
@@ -109,7 +116,7 @@ class SemanticService
                 $this->semanticAction116($previousToken);
                 break;
             case 117:
-                $this->semanticAction117();
+                $this->semanticAction117($previousToken);
                 break;
             case 118:
                 $this->semanticAction118();
@@ -123,11 +130,20 @@ class SemanticService
             case 130:
                 $this->semanticAction130($previousToken);
                 break;
+            case 131:
+                $this->semanticAction131();
+                break;
             case 137:
                 $this->semanticAction137($previousToken);
                 break;
             case 138:
                 $this->semanticAction138();
+                break;
+            case 139:
+                $this->semanticAction139($previousToken);
+                break;
+            case 140:
+                $this->semanticAction140();
                 break;
             case 147:
                 $this->semanticAction147();
@@ -171,6 +187,7 @@ class SemanticService
         $this->pilha = new Stack();
         $this->pilhaParametro = new Stack();
         $this->pilhaProcedures = new Stack();
+        $this->pilhaFor = new Stack();
         $this->tabelaSimbolo = new TabelaSimbolos();
         $this->areaLiterais = new AreaLiterais();
         $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
@@ -188,12 +205,14 @@ class SemanticService
     public function semanticAction101()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::PARA, 0, 0);
+        dd($this->areaInstrucoes);
     }
 
     public function semanticAction102()
     {
         $this->deslocamento = 3;
         $operacao2 = $this->deslocamento + $this->numeroVariaveis;
+
 
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, $operacao2);
     }
@@ -249,7 +268,7 @@ class SemanticService
         if ($exist) {
             die('erro 108');
         } else {
-            $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PROCEDURE, $this->nivelAtual, 0, 0);
+            $this->lastProcedure = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PROCEDURE, $this->nivelAtual, $this->areaInstrucoes->LC+1, 0);
             $this->nivelAtual++;
             $this->possuiParametro = false;
             $this->numeroParametro = 0;
@@ -261,18 +280,20 @@ class SemanticService
     public function semanticAction109()
     {
         if ($this->possuiParametro) {
-            $procedure = $this->tabelaSimbolo->list[$this->lastHash];
+            $procedure = $this->tabelaSimbolo->list[$this->lastProcedure];
             $procedure->setGeralB($this->numeroParametro);
 
             for ($i = 1; $i <= $this->numeroParametro; $i++) {
 
                 /** @var Simbolo $parametro */
                 $parametro = $this->pilhaParametro->getTop();
-                $parametro->setGeralA(-($this->numeroParametro - $i));
+
+                $parametro->setGeralA($i*-1);
+                $this->pilhaParametro->removeTop();
             }
 
             $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
-            $this->pilhaProcedures->add($this->areaInstrucoes->LC);
+            $this->pilhaProcedures->add($this->areaInstrucoes->LC-1);
             $this->pilhaProcedures->add($this->numeroParametro);
         }
     }
@@ -314,7 +335,9 @@ class SemanticService
 
     public function semanticAction115()
     {
-        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $this->identificadorAtual->getNivel(), $this->identificadorAtual->getGeralA());
+        $operacao1 = $this->nivelAtual - $this->identificadorAtual->getNivel();
+        $operacao2 = $this->identificadorAtual->getGeralA();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
     }
 
     public function semanticAction116($previousToken)
@@ -332,13 +355,18 @@ class SemanticService
         }
     }
 
-    public function semanticAction117()
+    public function semanticAction117($previousToken)
     {
-       if($this->numeroParametro != $this->numeroParametroEfetivo){
+
+        $simbolo = $this->tabelaSimbolo->search($this->identificadorAtual->getNome());
+
+        if($simbolo->getGeralB() != $this->numeroParametroEfetivo){
+           //dd($this->areaInstrucoes);
            die('erro 117');
        }else{
-           $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CALL, $this->identificadorAtual->getNivel(), $this->identificadorAtual->getGeralA());
 
+           $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CALL, 0, $this->identificadorAtual->getGeralA());
+           $this->numeroParametroEfetivo = 0;
        }
     }
 
@@ -391,6 +419,13 @@ class SemanticService
 
     }
 
+    public function semanticAction131()
+    {
+       $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPR, 0, 0);
+
+    }
+
+
     public function semanticAction137($previousToken)
     {
         $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
@@ -412,6 +447,36 @@ class SemanticService
         $operacao2 = $this->identificadorForAtual->getGeralA();
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
     }
+
+    public function semanticAction139($previousToken)
+    {
+        $this->pilhaFor->add($this->areaInstrucoes->LC);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
+
+        $operacao1 = $this->nivelAtual - $this->identificadorForAtual->getNivel();
+        $operacao2 = $this->identificadorForAtual->getGeralA();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRVL, $operacao1, $operacao2);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMAI, 0, 0);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
+        $this->pilhaFor->add($this->areaInstrucoes->LC-1);
+    }
+
+    public function semanticAction140()
+    {
+        $operacao1 = $this->identificadorForAtual->getNivel();
+        $operacao2 = $this->identificadorForAtual->getGeralA();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRVL, $operacao1, $operacao2);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, 1);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::SOMA, 0, 0);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
+        self::alterarAI($this->areaInstrucoes, $this->pilhaFor->getTop(), 0, $this->areaInstrucoes->LC+1);
+        $this->pilhaFor->removeTop();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, $this->pilhaFor->getTop());
+        $this->pilhaFor->removeTop();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
+
+    }
+
 
     public function semanticAction147()
     {
