@@ -176,9 +176,10 @@ class SemanticService
                 $this->semanticAction156();
                 break;
             default:
-                dump($branchCode);
-                dump($this->areaInstrucoes);
-                die;
+                dump("DEFAULT");
+//                dump($branchCode);
+//                dump($this->areaInstrucoes);
+//                die;
         }
     }
 
@@ -205,7 +206,7 @@ class SemanticService
     public function semanticAction101()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::PARA, 0, 0);
-        dd($this->areaInstrucoes);
+//        dd($this->areaInstrucoes);
     }
 
     public function semanticAction102()
@@ -614,4 +615,24 @@ class SemanticService
         }
         return $aux;
     }
+
+    /**
+     * @return AreaInstrucoes
+     */
+    public function getAreaInstrucoes()
+    {
+        return $this->areaInstrucoes;
+    }
+
+
+    /**
+     * @return AreaLiterais
+     */
+    public function getAreaLiterais()
+    {
+        return $this->areaLiterais;
+    }
+
+
+
 }

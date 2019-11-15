@@ -26,6 +26,11 @@ class IndexController extends AbstractController
         $listTokens =  new ArrayCollection();
         $erroLexico = null;
         $erroSintatico = null;
+        $areasInstrucoes= null;
+        $tabelaSimbolos = null;
+        $instructionsJson = null;
+        $literaisJson = null;
+
         if ($request->request->get('mensagem')) {
             $message = $request->request->get('mensagem');
             try {
@@ -41,12 +46,20 @@ class IndexController extends AbstractController
                 $semanticService = new SemanticService();
                 $sintaticService = new SintaticService($listTokens->toArray(),$semanticService);
                 $sintaticService->analize();
+                $instructionsJson = $semanticService->getAreaInstrucoes()->toJson();
+                $literaisJson = $semanticService->getAreaLiterais()->toJson();
+                $areasInstrucoes = $semanticService->getAreaInstrucoes()->toArray();
+                $tabelaSimbolos = $semanticService->tabelaSimbolo->toArray();
             } catch (SintaticError $e) {
                 $erroSintatico = $e;
             }
         }
         return $this->render('home/index.html.twig', [
             'listTokens' => $listTokens,
+            'jsonInstrucoes' =>$instructionsJson,
+            'jsonLiterais'=> $literaisJson,
+            'tabelaInstrucoes'=>$areasInstrucoes,
+            'tabelaSimbolos'=>$tabelaSimbolos,
             'errorLexico' => $erroLexico,
             'errorSintatico' => $erroSintatico,
             'mensagem' => $request->request->get('mensagem')

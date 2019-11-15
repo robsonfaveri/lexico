@@ -24,11 +24,12 @@
     {% elseif listTokens|length > 0 %}
 
         <p class="alert-success">Compilação Léxica Finalizada</p>
+        <p class="alert-success">Compilação Sintática Finalizada</p>
 
         <p>
-            <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Ver Tabela de Tokens</a>
+            <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseTokens" role="button" aria-expanded="false" aria-controls="collapseTokens">Ver Tabela de Tokens</a>
         </p>
-        <div class="collapse" id="collapseExample">
+        <div class="collapse" id="collapseTokens">
             <div class="card card-body">
                 <table class="table table-striped">
                     <thead class="thead-dark">
@@ -50,7 +51,75 @@
                 </table>
             </div>
         </div>
+        {% if tabelaSimbolos != null %}
+            <p>
+                <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseTabelaSimbolo" role="button" aria-expanded="false" aria-controls="collapseTabelaSimbolo">Tabela de Simbolos</a>
+            </p>
+            <div class="collapse" id="collapseTabelaSimbolo">
+                <div class="card card-body">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <th>#ÍNDICE</th>
+                        <th>NOME</th>
+                        <th>CATEGORIA</th>
+                        <th>NÍVEL</th>
+                        <th>GeralA</th>
+                        <th>GeralB</th>
+                        </thead>
+                        <tbody>
 
+                        {% for simbol in tabelaSimbolos %}
+                            <tr>
+                                <td>{{ simbol.indice }}</td>
+                                <td>{{ simbol.nome }}</td>
+                                <td>{{ simbol.categoria }}</td>
+                                <td>{{ simbol.nivel }}</td>
+                                <td>{{ simbol.geralA }}</td>
+                                <td>{{ simbol.geralB }}</td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if tabelaInstrucoes != null %}
+            <p>
+                <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseTabelaInstr" role="button" aria-expanded="false" aria-controls="collapseTabelaInstr">Tabela de Instruções</a>
+            </p>
+            <div class="collapse" id="collapseTabelaInstr">
+                <div class="card card-body">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <th>End.</th>
+                        <th>#Código</th>
+                        <th>Instrução</th>
+                        <th>OP 1</th>
+                        <th>OP 2</th>
+                        </thead>
+                        <tbody>
+                        {% set endCount = 0 %}
+                        {% for instruction in tabelaInstrucoes %}
+                            <tr>
+                                <td>{{ endCount }}</td>
+                                <td>{{ instruction.codigo }}</td>
+                                <td>{{ instruction.title }}</td>
+                                <td>{{ instruction.op1 }}</td>
+                                <td>{{ instruction.op2 }}</td>
+                            </tr>
+                            {% set endCount = endCount + 1 %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+    {% if jsonInstrucoes != null and jsonLiterais != null %}
+        <button class="btn btn-success" id="btn-compilar" data-instrucoes="{{ jsonInstrucoes }}" data-literais="{{ jsonLiterais }}" type="button">Compilar</button>
+{% endif %}
         {% if errorSintatico != null %}
             <h3 class="text-danger display-4">
                 ERRO!
@@ -69,7 +138,9 @@
             </h4>
             <hr class="my-4">
         {% else %}
-            <p class="alert-success">Compilação Sintática Finalizada</p>
+
         {% endif %}
     {% endif %}
+
+
 {% endblock %}

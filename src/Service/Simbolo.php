@@ -6,6 +6,7 @@ namespace App\Service;
 
 class Simbolo
 {
+    public $indice;
     public $nome;
     public $categoria;
     public $nivel;
@@ -66,6 +67,24 @@ class Simbolo
     public function __toString()
     {
         return "</tr><td>" . $this->nome . " </td><td>" . $this->categoria . " </td><td>" . $this->nivel . " </td><td>" . $this->geralA . "</td><td>" . $this->geralB . "</td><td>" . ($this->getProximo() ? "S" : "N") . "</td></tr>";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIndice()
+    {
+        return $this->indice;
+    }
+
+    /**
+     * @param mixed $nome
+     * @return Simbolo
+     */
+    public function setIndice($indice)
+    {
+        $this->indice = $indice;
+        return $this;
     }
 
     /**

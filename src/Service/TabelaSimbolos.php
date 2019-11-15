@@ -177,4 +177,16 @@ class TabelaSimbolos
             $hashVal += $tableSize;
         return $hashVal;
     }
+
+    public function toArray(){
+        $retorno = [];
+        foreach ($this->list as $k => $item) {
+            if ($item) {
+                $item->indice = $k;
+                $retorno[] = $item;
+            }
+        }
+
+        return $retorno;
+    }
 }

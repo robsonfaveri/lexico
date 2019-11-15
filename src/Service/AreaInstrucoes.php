@@ -35,6 +35,35 @@ class AreaInstrucoes{
     const NADA = 27;
     const COPI = 28;
     const DSVT = 29;
+
+    const Titles= ["","RETU","CRVL"
+        ,"CRCT"
+        ,"ARMZ"
+        ,"SOMA"
+        ,"SUBT"
+        ,"MULT"
+        ,"DIV "
+        ,"INVR"
+        ,"NEGA"
+        ,"CONJ"
+        ,"DISJ"
+        ,"CMME"
+        ,"CMMA"
+        ,"CMIG"
+        ,"CMDF"
+        ,"CMEI"
+        ,"CMAI"
+        ,"DSVS"
+        ,"DSVF"
+        ,"LEIT"
+        ,"IMPR"
+        ,"IMPRL"
+        ,"AMEM"
+        ,"CALL"
+        ,"PARA"
+        ,"NADA"
+        ,"COPI"
+        ,"DSVT"];
     
 
     public $AI = [];
@@ -48,6 +77,50 @@ class AreaInstrucoes{
         for($i=0; $i<$maxInst; $i++){
          $this->AI[$i]=new Tipos();
         }
+    }
+
+    public function toArray(){
+        $retorno = [];
+
+        foreach ($this->AI as $aItem){
+            if($aItem->codigo != -1){
+                $aItem->title = self::Titles[$aItem->codigo];
+                $aItem = $this->cleanInstruction($aItem);
+                $retorno[] =$aItem;
+            }
+        }
+        return $retorno;
+    }
+
+    public function toJson(){
+        $retorno = new \stdClass();
+        $retorno->AI = $this->AI;
+        $retorno->LC = $this->LC;
+        return json_encode($retorno);
+    }
+
+    private function cleanInstruction($aItem){
+
+        if($aItem->codigo == self::AMEM || $aItem->codigo == self::DSVS || $aItem->codigo == self::DSVF ||
+            $aItem->codigo == self::DSVT || $aItem->codigo == self::IMPRL || $aItem->codigo == self::RETU ||
+            $aItem->codigo == self::CALL || $aItem->codigo == self::CRCT
+        )
+        {
+            $aItem->op1 = "-";
+        }
+
+        if($aItem->codigo == self::PARA || $aItem->codigo == self::IMPR || $aItem->codigo == self::LEIT ||
+            $aItem->codigo == self::COPI || $aItem->codigo == self::CMME || $aItem->codigo == self::CMMA ||
+            $aItem->codigo == self::CMIG || $aItem->codigo == self::CMDF || $aItem->codigo == self::CMEI ||
+            $aItem->codigo == self::CMAI || $aItem->codigo == self::SOMA || $aItem->codigo == self::DIV ||
+            $aItem->codigo == self::MULT || $aItem->codigo == self::SUBT
+        )
+        {
+            $aItem->op1 = "-";
+            $aItem->op2 = "-";
+        }
+
+        return $aItem;
     }
 
 }
