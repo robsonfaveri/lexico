@@ -35,11 +35,11 @@ var MaquinaHipotetica = (function () {
     };
     MaquinaHipotetica.interpretar = function (AI, AL) {
         MaquinaHipotetica.topo = 0;
-        MaquinaHipotetica.b = 0;
+        MaquinaHipotetica.b = 0;//base
         MaquinaHipotetica.p = 0;
-        MaquinaHipotetica.S_$LI$()[1] = 0;
-        MaquinaHipotetica.S_$LI$()[2] = 0;
-        MaquinaHipotetica.S_$LI$()[3] = 0;
+        MaquinaHipotetica.S_$LI$()[1] = 0;//SL
+        MaquinaHipotetica.S_$LI$()[2] = 0;//DL
+        MaquinaHipotetica.S_$LI$()[3] = 0;//RA
         MaquinaHipotetica.operador = 0;
 
         while ((MaquinaHipotetica.operador !== 26)) {
