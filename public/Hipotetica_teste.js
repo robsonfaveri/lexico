@@ -82,7 +82,8 @@ var MaquinaHipotetica = (function () {
                         break;
                     case 8:
                         if (MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo] === 0) {
-                            console.info("Divisão por zero. - Erro durante a execução");
+                            console.error("Divisão por zero. - Erro durante a execução");
+                            alert("Divisão por zero. - Erro durante a execução");
                         }
                         else {
                             MaquinaHipotetica.S_$LI$()[(MaquinaHipotetica.topo - 1)] = (function (n) { return n < 0 ? Math.ceil(n) : Math.floor(n); })(MaquinaHipotetica.S_$LI$()[(MaquinaHipotetica.topo - 1)] / MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo]);
@@ -176,14 +177,16 @@ var MaquinaHipotetica = (function () {
                         MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo] = parseInt(leitura);
                         break;
                     case 22:
-                        console.info(MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo] + " - Informação");
+                        console.info("[SYS_Informação]: " + MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo]);
+                        alert("[SYS_Informação]: " + MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo]);
                         MaquinaHipotetica.topo -= 1;
                         break;
                     case 23:
                         if (MaquinaHipotetica.a >= AL.LIT)
                             console.error("Literal não encontrado na área dos literais. - Erro durante a execução");
                         else {
-                            console.info(AL.AL[MaquinaHipotetica.a] + " - Informação");
+                            console.info("[SYS_Informação]: " + AL.AL[MaquinaHipotetica.a]);
+                            alert("[SYS_Informação]: " + AL.AL[MaquinaHipotetica.a]);
                         }
                         break;
                     case 24:
