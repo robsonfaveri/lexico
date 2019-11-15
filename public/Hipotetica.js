@@ -61,6 +61,7 @@ var Hipotetica = (function () {
                 Hipotetica.l = AI.AI[Hipotetica.p].op1;
                 Hipotetica.a = AI.AI[Hipotetica.p].op2;
                 Hipotetica.p = Hipotetica.p + 1;
+                console.log(Hipotetica.S_$LI$()[Hipotetica.topo]);
                 switch ((Hipotetica.operador)) {
                     case 1:
                         Hipotetica.p = Hipotetica.S_$LI$()[Hipotetica.b + 2];
@@ -93,13 +94,15 @@ var Hipotetica = (function () {
                         break;
                     case 8:
                         if (Hipotetica.S_$LI$()[Hipotetica.topo] === 0) {
-                            console.info("Divisao por zero.Erro durante a execucao");
+                            console.info("Divisao por zero.Erro durante a execucao"+Hipotetica.S_$LI$()[Hipotetica.topo]);
+
+                        }else{
                             Hipotetica.S_$LI$()[Hipotetica.topo - 1] = (Hipotetica.S_$LI$()[Hipotetica.topo - 1] / Hipotetica.S_$LI$()[Hipotetica.topo] | 0);
                             Hipotetica.topo = Hipotetica.topo - 1;
                         }
                         break;
                     case 9:
-                        Hipotetica.S_$LI$()[Hipotetica.topo] = -Hipotetica.S_$LI$()[Hipotetica.topo];
+                        Hipotetsica.S_$LI$()[Hipotetica.topo] = -Hipotetica.S_$LI$()[Hipotetica.topo];
                         break;
                     case 10:
                         Hipotetica.S_$LI$()[Hipotetica.topo] = 1 - Hipotetica.S_$LI$()[Hipotetica.topo];
@@ -188,9 +191,10 @@ var Hipotetica = (function () {
                     case 21:
                         Hipotetica.topo = Hipotetica.topo + 1;
                         console.log("Leitura");
-                        leitura = window.prompt("Informe o valor:",leitura);
-                        console.log("Leitura",parseInt(leitura));
-                        (Hipotetica.S_$LI$()[Hipotetica.topo]) = parseInt(leitura);
+                        leitura = Number(window.prompt("Informe o valor:",""));
+                        console.log("Leitura",leitura);
+                        (Hipotetica.S_$LI$()[Hipotetica.topo]) = leitura;
+                        console.log(Hipotetica.S_$LI$()[Hipotetica.topo]);
                         break;
                     case 22:
                         console.info("" + Hipotetica.S_$LI$()[Hipotetica.topo] + "Informacao");
@@ -238,7 +242,6 @@ var Hipotetica = (function () {
             {
                 console.info(i + "[" + Hipotetica.S_$LI$()[i] + "]");
             }
-            ;
         }
     };
     return Hipotetica;
