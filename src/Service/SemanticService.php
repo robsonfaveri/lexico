@@ -387,8 +387,10 @@ class SemanticService
         if ($this->contexto == "readln") {
             if ($simbolo != null) {
                 if ($simbolo->getCategoria() == Simbolo::VARIAVEL) {
+                    $operacao1 = $this->nivelAtual - $simbolo->getNivel();
+                    $operacao2 = $simbolo->getGeralA();
                     $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::LEIT, 0, 0);
-                    $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $simbolo->getNivel(), $simbolo->getGeralA());
+                    $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
                 } else {
                     dd('erro 129 nao e variavel');
                 }

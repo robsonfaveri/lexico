@@ -1,11 +1,11 @@
 $(() => {
-    $("#btn-compilar").on("click",function(){
-       let instrucoes = JSON.parse($(this).attr("data-instrucoes"));
-       let literais = JSON.parse($(this).attr("data-literais"));
-       console.log("COMPILANDO...",literais);
-       MaquinaHipotetica.interpretar(instrucoes,literais);
+    $("#btn-compilar").on("click", function () {
+        let instrucoes = JSON.parse($(this).attr("data-instrucoes"));
+        let literais = JSON.parse($(this).attr("data-literais"));
+        console.log("COMPILANDO...", literais);
+        MaquinaHipotetica.interpretar(instrucoes, literais);
     });
- });
+});
 
 
 
@@ -13,11 +13,15 @@ var MaquinaHipotetica = (function () {
     function MaquinaHipotetica() {
         MaquinaHipotetica.nv = MaquinaHipotetica.np = MaquinaHipotetica.num_impr = 0;
     }
-    MaquinaHipotetica.S_$LI$ = function () { if (MaquinaHipotetica.S == null)
-        MaquinaHipotetica.S = (function (s) { var a = []; while (s-- > 0)
-            a.push(0); return a; })(1000); return MaquinaHipotetica.S; };
+    MaquinaHipotetica.S_$LI$ = function () {
+        if (MaquinaHipotetica.S == null)
+            MaquinaHipotetica.S = (function (s) {
+                var a = []; while (s-- > 0)
+                    a.push(0); return a;
+            })(1000); return MaquinaHipotetica.S;
+    };
     ;
-    
+
     MaquinaHipotetica.baseLiteral = function () {
         var b1 = MaquinaHipotetica.b;
         while ((MaquinaHipotetica.l > 0)) {
@@ -37,10 +41,12 @@ var MaquinaHipotetica = (function () {
         MaquinaHipotetica.S_$LI$()[2] = 0;
         MaquinaHipotetica.S_$LI$()[3] = 0;
         MaquinaHipotetica.operador = 0;
-        console.warn("START",AI);
+
         while ((MaquinaHipotetica.operador !== 26)) {
             {
                 MaquinaHipotetica.operador = AI.AI[MaquinaHipotetica.p].codigo;
+                // console.warn("OPERACAO", MaquinaHipotetica.operador);
+                // console.warn("TESTE", MaquinaHipotetica.S_$LI$());
                 MaquinaHipotetica.l = AI.AI[MaquinaHipotetica.p].op1;
                 MaquinaHipotetica.a = AI.AI[MaquinaHipotetica.p].op2;
                 MaquinaHipotetica.p += 1;
@@ -56,7 +62,7 @@ var MaquinaHipotetica = (function () {
                         break;
                     case 3:
                         MaquinaHipotetica.topo += 1;
-                        MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo] = MaquinaHipotetica.a;
+                        MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo] = parseInt(MaquinaHipotetica.a);
                         break;
                     case 4:
                         MaquinaHipotetica.S_$LI$()[(MaquinaHipotetica.baseLiteral() + MaquinaHipotetica.a)] = MaquinaHipotetica.S_$LI$()[MaquinaHipotetica.topo];
@@ -175,7 +181,7 @@ var MaquinaHipotetica = (function () {
                         break;
                     case 23:
                         if (MaquinaHipotetica.a >= AL.LIT)
-                            console.info("Literal não encontrado na área dos literais. -Erro durante a execução");
+                            console.error("Literal não encontrado na área dos literais. - Erro durante a execução");
                         else {
                             console.info(AL.AL[MaquinaHipotetica.a] + " - Informação");
                         }
