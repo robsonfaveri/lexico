@@ -216,7 +216,14 @@ var MaquinaHipotetica = (function () {
                 }
             }
         }
-        ;
+
+    };
+    /*private*/ MaquinaHipotetica.mostraAreaDados = function () {
+        for (var i = MaquinaHipotetica.topo; i >= 0; i--) {
+            {
+                console.info(i + "[" + MaquinaHipotetica.S_$LI$()[i] + "]");
+            }
+        }
     };
     return MaquinaHipotetica;
 }());
