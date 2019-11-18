@@ -64,6 +64,9 @@ class SemanticService
     /** @var Simbolo $identificadorAtual */
     private $identificadorForAtual;
 
+    /** @var Stack $pilhaIFs  */
+    private $pilhaIFs;
+
     private $contexto;
 
 
@@ -121,6 +124,15 @@ class SemanticService
             case 118:
                 $this->semanticAction118();
                 break;
+            case 120:
+                $this->semanticAction120();
+                break;
+            case 121:
+                $this->semanticAction121();
+                break;
+            case 122:
+                $this->semanticAction122();
+                break;
             case 128:
                 $this->semanticAction128();
                 break;
@@ -144,6 +156,24 @@ class SemanticService
                 break;
             case 140:
                 $this->semanticAction140();
+                break;
+            case 141:
+                $this->semanticAction141();
+                break;
+            case 142:
+                $this->semanticAction142();
+                break;
+            case 143:
+                $this->semanticAction143();
+                break;
+            case 144:
+                $this->semanticAction144();
+                break;
+            case 145:
+                $this->semanticAction145();
+                break;
+            case 146:
+                $this->semanticAction146();
                 break;
             case 147:
                 $this->semanticAction147();
@@ -177,9 +207,9 @@ class SemanticService
                 break;
             default:
                 dump("DEFAULT");
-//                dump($branchCode);
-//                dump($this->areaInstrucoes);
-//                die;
+                dump($branchCode);
+               dump($this->areaInstrucoes);
+                die;
         }
     }
 
@@ -189,6 +219,7 @@ class SemanticService
         $this->pilhaParametro = new Stack();
         $this->pilhaProcedures = new Stack();
         $this->pilhaFor = new Stack();
+        $this->pilhaIFs = new Stack();
         $this->tabelaSimbolo = new TabelaSimbolos();
         $this->areaLiterais = new AreaLiterais();
         $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
@@ -376,6 +407,30 @@ class SemanticService
         $this->numeroParametroEfetivo++;
     }
 
+    public function semanticAction120()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
+        $this->pilhaIFs->add($this->areaInstrucoes->LC-1);
+    }
+
+    public function semanticAction121()
+    {
+        $valorLC = $this->pilhaIFs->getTop();
+        $this->pilhaIFs->removeTop();
+
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC);
+    }
+
+    public function semanticAction122()
+    {
+        $valorLC = $this->pilhaIFs->getTop();
+        $this->pilhaIFs->removeTop();
+
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
+        $this->pilhaIFs->add($this->areaInstrucoes->LC-1);
+    }
+
     public function semanticAction128()
     {
         $this->contexto = 'readln';
@@ -478,6 +533,37 @@ class SemanticService
         $this->pilhaFor->removeTop();
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
 
+    }
+
+    public function semanticAction141()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
+    }
+
+    public function semanticAction142()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMME, 0, 0);
+    }
+
+
+    public function semanticAction143()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMMA, 0, 0);
+    }
+
+    public function semanticAction144()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMAI, 0, 0);
+    }
+
+    public function semanticAction145()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMEI, 0, 0);
+    }
+
+    public function semanticAction146()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMDF, 0, 0);
     }
 
 
