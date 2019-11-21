@@ -67,6 +67,15 @@ class SemanticService
     /** @var Stack $pilhaIFs  */
     private $pilhaIFs;
 
+    /** @var Stack $pilhaWhile  */
+    private $pilhaWhile;
+
+    /** @var Stack $pilhaRepeat  */
+    private $pilhaRepeat;
+
+    /** @var Stack $pilhaCase  */
+    private $pilhaCase;
+
     private $contexto;
 
 
@@ -133,6 +142,21 @@ class SemanticService
             case 122:
                 $this->semanticAction122();
                 break;
+            case 123:
+                $this->semanticAction123();
+                break;
+            case 124:
+                $this->semanticAction124();
+                break;
+            case 125:
+                $this->semanticAction125();
+                break;
+            case 126:
+                $this->semanticAction126();
+                break;
+            case 127:
+                $this->semanticAction127();
+                break;
             case 128:
                 $this->semanticAction128();
                 break;
@@ -144,6 +168,21 @@ class SemanticService
                 break;
             case 131:
                 $this->semanticAction131();
+                break;
+            case 132:
+                $this->semanticAction132();
+                break;
+            case 133:
+                $this->semanticAction133();
+                break;
+            case 134:
+                $this->semanticAction134($currentToken);
+                break;
+            case 135:
+                $this->semanticAction135();
+                break;
+            case 136:
+                $this->semanticAction136($currentToken);
                 break;
             case 137:
                 $this->semanticAction137($previousToken);
@@ -220,6 +259,9 @@ class SemanticService
         $this->pilhaProcedures = new Stack();
         $this->pilhaFor = new Stack();
         $this->pilhaIFs = new Stack();
+        $this->pilhaWhile = new Stack();
+        $this->pilhaRepeat = new Stack();
+        $this->pilhaCase = new Stack();
         $this->tabelaSimbolo = new TabelaSimbolos();
         $this->areaLiterais = new AreaLiterais();
         $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
@@ -431,6 +473,42 @@ class SemanticService
         $this->pilhaIFs->add($this->areaInstrucoes->LC-1);
     }
 
+    public function semanticAction123()
+    {
+        $this->pilhaWhile->add($this->areaInstrucoes->LC);
+    }
+
+    public function semanticAction124()
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
+        $this->pilhaWhile->add($this->areaInstrucoes->LC-1);
+    }
+
+    public function semanticAction125()
+    {
+        $valorLC = $this->pilhaWhile->getTop();
+        $this->pilhaWhile->removeTop();
+
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+
+        $valorLC = $this->pilhaWhile->getTop();
+        $this->pilhaWhile->removeTop();
+
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, $valorLC);
+    }
+
+    public function semanticAction126()
+    {
+        $this->pilhaRepeat->add($this->areaInstrucoes->LC);
+    }
+
+    public function semanticAction127()
+    {
+        $valorLC = $this->pilhaRepeat->getTop();
+        $this->pilhaRepeat->removeTop();
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, $valorLC);
+    }
+
     public function semanticAction128()
     {
         $this->contexto = 'readln';
@@ -481,6 +559,56 @@ class SemanticService
     {
        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPR, 0, 0);
 
+    }
+
+    public function semanticAction132()
+    {
+        //??
+
+    }
+
+    public function semanticAction133()
+    {
+        $valorLC = $this->pilhaCase->getTop();
+        $this->pilhaCase->removeTop();
+
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
+
+    }
+
+    public function semanticAction134($currentToken)
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $currentToken->getName());
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
+
+        $valorLC = $this->pilhaCase->getTop();
+        $this->pilhaCase->removeTop();
+
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
+        $this->pilhaCase->add($this->areaInstrucoes->LC-1);
+    }
+
+    public function semanticAction135()
+    {
+        $valorLC = $this->pilhaCase->getTop();
+        $this->pilhaCase->removeTop();
+
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
+        $this->pilhaCase->add($this->areaInstrucoes->LC-1);
+
+    }
+
+    public function semanticAction136( $currentToken)
+    {
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $currentToken->getName());
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVT, 0, 0);
+        $this->pilhaCase->add($this->areaInstrucoes->LC-1);
     }
 
 
