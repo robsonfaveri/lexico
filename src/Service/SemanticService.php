@@ -76,13 +76,21 @@ class SemanticService
     /** @var Stack $pilhaCase  */
     private $pilhaCase;
 
+    /** @var Stack $pilhaCaseFinal  */
+    private $pilhaCaseFinal;
+
+    /** @var Stack $pilhaCaseAux  */
+    private $pilhaCaseFinalAux;
+
     private $contexto;
 
+    private $count = 0;
 
 
-    public function exec($branchCode, $currentToken, $previousToken)
+
+    public function exec($branchCode, $currentToken, $previousToken,$oldToken)
     {
-       // dump($branchCode);
+        dump($branchCode);
         switch ($branchCode) {
 
             case 100:
@@ -176,13 +184,13 @@ class SemanticService
                 $this->semanticAction133();
                 break;
             case 134:
-                $this->semanticAction134($currentToken);
+                $this->semanticAction134($oldToken);
                 break;
             case 135:
                 $this->semanticAction135();
                 break;
             case 136:
-                $this->semanticAction136($currentToken);
+                $this->semanticAction136($oldToken);
                 break;
             case 137:
                 $this->semanticAction137($previousToken);
@@ -250,6 +258,8 @@ class SemanticService
                dump($this->areaInstrucoes);
                 die;
         }
+
+        //dump($branchCode);dump($this->areaInstrucoes->LC);
     }
 
     private function semanticAction100()
@@ -262,6 +272,8 @@ class SemanticService
         $this->pilhaWhile = new Stack();
         $this->pilhaRepeat = new Stack();
         $this->pilhaCase = new Stack();
+        $this->pilhaCaseFinal = new Stack();
+        $this->pilhaCaseFinalAux = new Stack();
         $this->tabelaSimbolo = new TabelaSimbolos();
         $this->areaLiterais = new AreaLiterais();
         $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
@@ -569,43 +581,70 @@ class SemanticService
 
     public function semanticAction133()
     {
-        $valorLC = $this->pilhaCase->getTop();
-        $this->pilhaCase->removeTop();
 
-        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC);
+        while (!$this->pilhaCaseFinal->isEmpty()) {
+            $valorLC = $this->pilhaCaseFinal->getTop();
+            $this->pilhaCaseFinal->removeTop();
+
+            self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC);
+        }
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
 
     }
 
-    public function semanticAction134($currentToken)
+    public function semanticAction134($oldToken)
     {
+
+
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
-        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $currentToken->getName());
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
 
-        $valorLC = $this->pilhaCase->getTop();
-        $this->pilhaCase->removeTop();
+        if(!$this->pilhaCase->isEmpty()) {
+            $valorLC = $this->pilhaCase->getTop();
+            $this->pilhaCase->removeTop();
 
-        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+            self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC + 1);
+
+        }
+
+        /*$this->count++;
+        if($this->count == 2) {
+            dump('-----------inicio');
+            dump($this->count);
+            dump($valorLC);
+            dump($this->areaInstrucoes->LC);
+            dump($oldToken);
+            dump($this->pilhaCase);
+            dump($this->areaInstrucoes);
+            dump('-----------fim');
+            die;
+        }*/
+
+
+
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
-        $this->pilhaCase->add($this->areaInstrucoes->LC-1);
+        $this->pilhaCaseFinalAux->add($this->areaInstrucoes->LC-1);
+
+
     }
 
     public function semanticAction135()
     {
-        $valorLC = $this->pilhaCase->getTop();
-        $this->pilhaCase->removeTop();
+        $valorLC = $this->pilhaCaseFinalAux->getTop();
+        $this->pilhaCaseFinalAux->removeTop();
 
         self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
-        $this->pilhaCase->add($this->areaInstrucoes->LC-1);
+        $this->pilhaCaseFinal->add($this->areaInstrucoes->LC-1);
 
     }
 
-    public function semanticAction136( $currentToken)
+    public function semanticAction136($oldToken)
     {
+
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
-        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $currentToken->getName());
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVT, 0, 0);
         $this->pilhaCase->add($this->areaInstrucoes->LC-1);

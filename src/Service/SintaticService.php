@@ -15,6 +15,7 @@ class SintaticService
     private $stack;
     private $currentToken = null;
     private $previousToken = null;
+    private $oldToken = null;
     private $tokensLexico;
     private $contador;
     private $semanticService;
@@ -75,6 +76,8 @@ class SintaticService
                         return true;
                     }
                 } else {
+
+                    $this->oldToken = $this->previousToken;
                     $this->previousToken = $this->currentToken;
                     $this->contador = $this->contador + 1;
                 }
@@ -99,7 +102,7 @@ class SintaticService
 
 
             $valorSemantico = $branchCode - ParserConstant::FIRST_SEMANTIC_ACTION;
-            $this->semanticService->exec($valorSemantico,$this->currentToken,$this->previousToken);
+            $this->semanticService->exec($valorSemantico,$this->currentToken,$this->previousToken,$this->oldToken);
             $this->stack->removeTop();
 
         }else{
