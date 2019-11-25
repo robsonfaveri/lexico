@@ -99,8 +99,6 @@ class SintaticService
                 }
             }
         } elseif($this->isSemantic($branchCode)){
-
-
             $valorSemantico = $branchCode - ParserConstant::FIRST_SEMANTIC_ACTION;
             $this->semanticService->exec($valorSemantico,$this->currentToken,$this->previousToken,$this->oldToken);
             $this->stack->removeTop();

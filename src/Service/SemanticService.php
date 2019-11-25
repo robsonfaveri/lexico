@@ -3,7 +3,7 @@
 
 namespace App\Service;
 
-
+use App\Exception\SemanticError;
 
 class SemanticService
 {
@@ -86,11 +86,14 @@ class SemanticService
 
     private $count = 0;
 
+    private $currentToken;
 
 
-    public function exec($branchCode, $currentToken, $previousToken,$oldToken)
+
+    public function exec($branchCode, $currentToken, $previousToken, $oldToken)
     {
         dump($branchCode);
+        $this->currentToken = $currentToken;
         switch ($branchCode) {
 
             case 100:
@@ -255,7 +258,7 @@ class SemanticService
             default:
                 dump("DEFAULT");
                 dump($branchCode);
-               dump($this->areaInstrucoes);
+                dump($this->areaInstrucoes);
                 die;
         }
 
@@ -291,7 +294,7 @@ class SemanticService
     public function semanticAction101()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::PARA, 0, 0);
-//        dd($this->areaInstrucoes);
+        //        dd($this->areaInstrucoes);
     }
 
     public function semanticAction102()
@@ -307,7 +310,6 @@ class SemanticService
     {
         $tokenName = $previousToken->getName();
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
-
         if ($this->tipoIdentificador == Simbolo::VARIAVEL) {
             $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::VARIAVEL, $this->nivelAtual, $this->deslocamento, 0);
             $this->numeroVariaveis++;
@@ -317,7 +319,7 @@ class SemanticService
             $this->numeroParametro++;
             $this->pilhaParametro->add($this->tabelaSimbolo->list[$this->lastHash]);
         } else {
-            die('erro 104');
+            throw new SemanticError("Erro semântico, ação 104", 104, $this->currentToken->getLineToken());
         }
     }
 
@@ -327,7 +329,7 @@ class SemanticService
 
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
         if ($exist) {
-            die('erro 105');
+            throw new SemanticError("Erro semântico, ação 105", 105, $this->currentToken->getLineToken());
         } else {
             $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::CONSTANTE, $this->nivelAtual, 0, 0);
         }
@@ -352,9 +354,9 @@ class SemanticService
 
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
         if ($exist) {
-            die('erro 108');
+            throw new SemanticError("Erro semântico, ação 108", 108, $this->currentToken->getLineToken());
         } else {
-            $this->lastProcedure = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PROCEDURE, $this->nivelAtual, $this->areaInstrucoes->LC+1, 0);
+            $this->lastProcedure = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PROCEDURE, $this->nivelAtual, $this->areaInstrucoes->LC + 1, 0);
             $this->nivelAtual++;
             $this->possuiParametro = false;
             $this->numeroParametro = 0;
@@ -374,17 +376,17 @@ class SemanticService
                 /** @var Simbolo $parametro */
                 $parametro = $this->pilhaParametro->getTop();
 
-                $parametro->setGeralA($i*-1);
+                $parametro->setGeralA($i * -1);
                 $this->pilhaParametro->removeTop();
             }
 
             $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
-            $this->pilhaProcedures->add($this->areaInstrucoes->LC-1);
+            $this->pilhaProcedures->add($this->areaInstrucoes->LC - 1);
             $this->pilhaProcedures->add($this->numeroParametro);
         }
     }
 
-    public function semanticAction110($previousToken,$currentToken)
+    public function semanticAction110($previousToken, $currentToken)
     {
         $numeroParametro = $this->pilhaProcedures->getTop();
         $this->pilhaProcedures->removeTop();
@@ -412,10 +414,10 @@ class SemanticService
             if ($simbolo->getCategoria() == Simbolo::VARIAVEL) {
                 $this->identificadorAtual = $simbolo;
             } else {
-                dd('erro 114 não é variavel');
+                throw new SemanticError("Erro semântico, não é variavel, ação 114", 114, $this->currentToken->getLineToken());
             }
         } else {
-            dd('erro 114 não declarado');
+            throw new SemanticError("Erro semântico, não foi declarado, ação 114", 114, $this->currentToken->getLineToken());
         }
     }
 
@@ -434,10 +436,10 @@ class SemanticService
             if ($simbolo->getCategoria() == Simbolo::PROCEDURE) {
                 $this->identificadorAtual = $simbolo;
             } else {
-                dd('erro 116 não é procedure');
+                throw new SemanticError("Erro semântico, não é procedure, ação 116", 116, $this->currentToken->getLineToken());
             }
         } else {
-            dd('erro 116 não declarado');
+            throw new SemanticError("Erro semântico, não foi declarado, ação 116", 116, $this->currentToken->getLineToken());
         }
     }
 
@@ -446,14 +448,14 @@ class SemanticService
 
         $simbolo = $this->tabelaSimbolo->search($this->identificadorAtual->getNome());
 
-        if($simbolo->getGeralB() != $this->numeroParametroEfetivo){
-           //dd($this->areaInstrucoes);
-           die('erro 117');
-       }else{
+        if ($simbolo->getGeralB() != $this->numeroParametroEfetivo) {
+            //dd($this->areaInstrucoes);
+            throw new SemanticError("Erro semântico, ação 117", 117, $this->currentToken->getLineToken());
+        } else {
 
-           $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CALL, 0, $this->identificadorAtual->getGeralA());
-           $this->numeroParametroEfetivo = 0;
-       }
+            $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CALL, 0, $this->identificadorAtual->getGeralA());
+            $this->numeroParametroEfetivo = 0;
+        }
     }
 
     public function semanticAction118()
@@ -464,7 +466,7 @@ class SemanticService
     public function semanticAction120()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
-        $this->pilhaIFs->add($this->areaInstrucoes->LC-1);
+        $this->pilhaIFs->add($this->areaInstrucoes->LC - 1);
     }
 
     public function semanticAction121()
@@ -480,9 +482,9 @@ class SemanticService
         $valorLC = $this->pilhaIFs->getTop();
         $this->pilhaIFs->removeTop();
 
-        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC + 1);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
-        $this->pilhaIFs->add($this->areaInstrucoes->LC-1);
+        $this->pilhaIFs->add($this->areaInstrucoes->LC - 1);
     }
 
     public function semanticAction123()
@@ -493,7 +495,7 @@ class SemanticService
     public function semanticAction124()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
-        $this->pilhaWhile->add($this->areaInstrucoes->LC-1);
+        $this->pilhaWhile->add($this->areaInstrucoes->LC - 1);
     }
 
     public function semanticAction125()
@@ -501,7 +503,7 @@ class SemanticService
         $valorLC = $this->pilhaWhile->getTop();
         $this->pilhaWhile->removeTop();
 
-        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC + 1);
 
         $valorLC = $this->pilhaWhile->getTop();
         $this->pilhaWhile->removeTop();
@@ -537,25 +539,25 @@ class SemanticService
                     $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::LEIT, 0, 0);
                     $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
                 } else {
-                    dd('erro 129 nao e variavel');
+                    throw new SemanticError("Erro semântico, não é variavel, ação 129", 129, $this->currentToken->getLineToken());
                 }
             } else {
-                dd('erro 129 nao existe variavel');
+                throw new SemanticError("Erro semântico, não existe variavel, ação 129", 129, $this->currentToken->getLineToken());
             }
         } elseif ($this->contexto == "expressao") {
             if ($simbolo != null) {
                 if ($simbolo->getCategoria() == Simbolo::PROCEDURE) {
-                    dd('erro 129 simbolo e procedure');
+                    throw new SemanticError("Erro semântico, simbolo e procedure, ação 129", 129, $this->currentToken->getLineToken());
                 } else {
                     if ($simbolo->getCategoria() == Simbolo::CONSTANTE) {
                         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $simbolo->getGeralA());
                     } else {
-                        $d_nivel = $this->nivelAtual-$simbolo->getNivel();
+                        $d_nivel = $this->nivelAtual - $simbolo->getNivel();
                         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRVL, $d_nivel, $simbolo->getGeralA());
                     }
                 }
             } else {
-                dd('erro 129 nao existe variavel');
+                throw new SemanticError("Erro semântico, não existe variavel, ação 129", 129, $this->currentToken->getLineToken());
             }
         }
     }
@@ -563,14 +565,12 @@ class SemanticService
     public function semanticAction130($previousToken)
     {
         self::incluirAL($this->areaLiterais, $previousToken->getName());
-        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPRL, 0, $this->areaLiterais->LIT-1);
-
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPRL, 0, $this->areaLiterais->LIT - 1);
     }
 
     public function semanticAction131()
     {
-       $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPR, 0, 0);
-
+        $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPR, 0, 0);
     }
 
     public function semanticAction132()
@@ -589,7 +589,6 @@ class SemanticService
             self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC);
         }
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
-
     }
 
     public function semanticAction134($oldToken)
@@ -600,12 +599,11 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
 
-        if(!$this->pilhaCase->isEmpty()) {
+        if (!$this->pilhaCase->isEmpty()) {
             $valorLC = $this->pilhaCase->getTop();
             $this->pilhaCase->removeTop();
 
             self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC + 1);
-
         }
 
         /*$this->count++;
@@ -624,9 +622,7 @@ class SemanticService
 
 
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
-        $this->pilhaCaseFinalAux->add($this->areaInstrucoes->LC-1);
-
-
+        $this->pilhaCaseFinalAux->add($this->areaInstrucoes->LC - 1);
     }
 
     public function semanticAction135()
@@ -634,10 +630,9 @@ class SemanticService
         $valorLC = $this->pilhaCaseFinalAux->getTop();
         $this->pilhaCaseFinalAux->removeTop();
 
-        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC+1);
+        self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC + 1);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
-        $this->pilhaCaseFinal->add($this->areaInstrucoes->LC-1);
-
+        $this->pilhaCaseFinal->add($this->areaInstrucoes->LC - 1);
     }
 
     public function semanticAction136($oldToken)
@@ -647,7 +642,7 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVT, 0, 0);
-        $this->pilhaCase->add($this->areaInstrucoes->LC-1);
+        $this->pilhaCase->add($this->areaInstrucoes->LC - 1);
     }
 
 
@@ -659,10 +654,10 @@ class SemanticService
             if ($simbolo->getCategoria() == Simbolo::VARIAVEL) {
                 $this->identificadorForAtual = $simbolo;
             } else {
-                dd('erro 137 não é variavel');
+                throw new SemanticError("Erro semântico, não é variavel, ação 137", 137, $this->currentToken->getLineToken());
             }
         } else {
-            dd('erro 137 não declarado');
+            throw new SemanticError("Erro semântico, não foi declarado, ação 137", 137, $this->currentToken->getLineToken());
         }
     }
 
@@ -683,7 +678,7 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRVL, $operacao1, $operacao2);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMAI, 0, 0);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
-        $this->pilhaFor->add($this->areaInstrucoes->LC-1);
+        $this->pilhaFor->add($this->areaInstrucoes->LC - 1);
     }
 
     public function semanticAction140()
@@ -694,12 +689,11 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, 1);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::SOMA, 0, 0);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
-        self::alterarAI($this->areaInstrucoes, $this->pilhaFor->getTop(), 0, $this->areaInstrucoes->LC+1);
+        self::alterarAI($this->areaInstrucoes, $this->pilhaFor->getTop(), 0, $this->areaInstrucoes->LC + 1);
         $this->pilhaFor->removeTop();
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, $this->pilhaFor->getTop());
         $this->pilhaFor->removeTop();
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
-
     }
 
     public function semanticAction141()
@@ -772,7 +766,6 @@ class SemanticService
     public function semanticAction154($previousToken)
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $previousToken->getName());
-
     }
 
     public function semanticAction155()
@@ -887,7 +880,4 @@ class SemanticService
     {
         return $this->areaLiterais;
     }
-
-
-
 }

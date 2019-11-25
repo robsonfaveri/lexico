@@ -2,145 +2,162 @@
 
 
 {% block body %}
-    <h2>Analisador Léxico / Sintático</h2>
-    <form method="post" action="{{ path('home') }}">
+	<h2>Analisador Léxico / Sintático</h2>
+	<form method="post" action="{{ path('home') }}">
 
-        <div class="form-group">
-            <textarea class="form-control" id="campoMensagem" name="mensagem" placeholder="Digite o codigo" required>{{ mensagem }}</textarea>
-        </div>
-        <button class="btn btn-success" id="btn" type="submit">Analisar</button>
-    </form>
-    {% if errorLexico != null %}
-        <h3 class="text-danger display-4">
-            ERRO!
-        </h3>
-        <hr class="my-4">
-        <h4>Erro Léxico
-            <strong>"{{errorLexico.msg}}"</strong>, linha:
-            <strong>{{errorLexico.lineCodeError}}</strong>{% if (not errorLexico.currentChar is empty) %}, Caractere:
-            <strong>{{errorLexico.currentChar }}</strong> {% endif %}
-        </h4>
-        <hr class="my-4">
-    {% elseif listTokens|length > 0 %}
+		<div class="form-group">
+			<textarea class="form-control" id="campoMensagem" name="mensagem" placeholder="Digite o codigo" required>{{ mensagem }}</textarea>
+		</div>
+		<button class="btn btn-success" id="btn" type="submit">Analisar</button>
+	</form>
+	{% if errorLexico != null %}
+		<h3 class="text-danger display-4">
+			ERRO!
+		</h3>
+		<hr class="my-4">
+		<h4>Erro Léxico
+			<strong>"{{errorLexico.msg}}"</strong>, linha:
+			<strong>{{errorLexico.lineCodeError}}</strong>
+			{% if (not errorLexico.currentChar is empty) %}, Caractere:
+				<strong>{{errorLexico.currentChar }}</strong>
+			{% endif %}
+		</h4>
+		<hr class="my-4">
+	{% elseif listTokens|length > 0 %}
 
-        <p class="alert-success">Compilação Léxica Finalizada</p>
-        <p class="alert-success">Compilação Sintática Finalizada</p>
+		<p class="alert-success">Compilação Léxica Finalizada</p>
+		<p class="alert-success">Compilação Sintática Finalizada</p>
 
-        <p>
-            <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseTokens" role="button" aria-expanded="false" aria-controls="collapseTokens">Ver Tabela de Tokens</a>
-        </p>
-        <div class="collapse" id="collapseTokens">
-            <div class="card card-body">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <th>TOKEN</th>
-                        <th>LEXEMA</th>
-                        <th>DESCRIÇÃO</th>
-                    </thead>
-                    <tbody>
+		<p>
+			<a class=" btn-primary btn" id="btn" data-toggle="collapse" href="#collapseTokens" role="button" aria-expanded="false" aria-controls="collapseTokens">Ver Tabela de Tokens</a>
+		</p>
+		<div class="collapse" id="collapseTokens">
+			<div class="card card-body">
+				<table class="table table-striped">
+					<thead class="thead-dark">
+						<th>TOKEN</th>
+						<th>LEXEMA</th>
+						<th>DESCRIÇÃO</th>
+					</thead>
+					<tbody>
 
-                        {% for token in listTokens %}
-                            <tr>
-                                <td>{{ token.code }}</td>
-                                <td>{{ token.name }}</td>
-                                <td>{{ token.description }}</td>
-                            </tr>
+						{% for token in listTokens %}
+							<tr>
+								<td>{{ token.code }}</td>
+								<td>{{ token.name }}</td>
+								<td>{{ token.description }}</td>
+							</tr>
 
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {% if tabelaSimbolos != null %}
-            <p>
-                <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseTabelaSimbolo" role="button" aria-expanded="false" aria-controls="collapseTabelaSimbolo">Tabela de Simbolos</a>
-            </p>
-            <div class="collapse" id="collapseTabelaSimbolo">
-                <div class="card card-body">
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                        <th>#ÍNDICE</th>
-                        <th>NOME</th>
-                        <th>CATEGORIA</th>
-                        <th>NÍVEL</th>
-                        <th>GeralA</th>
-                        <th>GeralB</th>
-                        </thead>
-                        <tbody>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% if tabelaSimbolos != null %}
+			<p>
+				<a class=" btn-primary btn" id="btn" data-toggle="collapse" href="#collapseTabelaSimbolo" role="button" aria-expanded="false" aria-controls="collapseTabelaSimbolo">Tabela de Simbolos</a>
+			</p>
+			<div class="collapse" id="collapseTabelaSimbolo">
+				<div class="card card-body">
+					<table class="table table-striped">
+						<thead class="thead-dark">
+							<th>#ÍNDICE</th>
+							<th>NOME</th>
+							<th>CATEGORIA</th>
+							<th>NÍVEL</th>
+							<th>GeralA</th>
+							<th>GeralB</th>
+						</thead>
+						<tbody>
 
-                        {% for simbol in tabelaSimbolos %}
-                            <tr>
-                                <td>{{ simbol.indice }}</td>
-                                <td>{{ simbol.nome }}</td>
-                                <td>{{ simbol.categoria }}</td>
-                                <td>{{ simbol.nivel }}</td>
-                                <td>{{ simbol.geralA }}</td>
-                                <td>{{ simbol.geralB }}</td>
-                            </tr>
+							{% for simbol in tabelaSimbolos %}
+								<tr>
+									<td>{{ simbol.indice }}</td>
+									<td>{{ simbol.nome }}</td>
+									<td>{{ simbol.categoria }}</td>
+									<td>{{ simbol.nivel }}</td>
+									<td>{{ simbol.geralA }}</td>
+									<td>{{ simbol.geralB }}</td>
+								</tr>
 
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endif %}
 
-        {% if tabelaInstrucoes != null %}
-            <p>
-                <a class=" btn-primary btn"  id="btn" data-toggle="collapse" href="#collapseTabelaInstr" role="button" aria-expanded="false" aria-controls="collapseTabelaInstr">Tabela de Instruções</a>
-            </p>
-            <div class="collapse" id="collapseTabelaInstr">
-                <div class="card card-body">
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                        <th>End.</th>
-                        <th>#Código</th>
-                        <th>Instrução</th>
-                        <th>OP 1</th>
-                        <th>OP 2</th>
-                        </thead>
-                        <tbody>
-                        {% set endCount = 0 %}
-                        {% for instruction in tabelaInstrucoes %}
-                            <tr>
-                                <td>{{ endCount }}</td>
-                                <td>{{ instruction.codigo }}</td>
-                                <td>{{ instruction.title }}</td>
-                                <td>{{ instruction.op1 }}</td>
-                                <td>{{ instruction.op2 }}</td>
-                            </tr>
-                            {% set endCount = endCount + 1 %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% endif %}
+		{% if tabelaInstrucoes != null %}
+			<p>
+				<a class=" btn-primary btn" id="btn" data-toggle="collapse" href="#collapseTabelaInstr" role="button" aria-expanded="false" aria-controls="collapseTabelaInstr">Tabela de Instruções</a>
+			</p>
+			<div class="collapse" id="collapseTabelaInstr">
+				<div class="card card-body">
+					<table class="table table-striped">
+						<thead class="thead-dark">
+							<th>End.</th>
+							<th>#Código</th>
+							<th>Instrução</th>
+							<th>OP 1</th>
+							<th>OP 2</th>
+						</thead>
+						<tbody>
+							{% set endCount = 0 %}
+							{% for instruction in tabelaInstrucoes %}
+								<tr>
+									<td>{{ endCount }}</td>
+									<td>{{ instruction.codigo }}</td>
+									<td>{{ instruction.title }}</td>
+									<td>{{ instruction.op1 }}</td>
+									<td>{{ instruction.op2 }}</td>
+								</tr>
+								{% set endCount = endCount + 1 %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endif %}
 
-    {% if jsonInstrucoes != null and jsonLiterais != null %}
-        <button class="btn btn-success" id="btn-compilar" data-instrucoes="{{ jsonInstrucoes }}" data-literais="{{ jsonLiterais }}" type="button">Compilar</button>
-{% endif %}
-        {% if errorSintatico != null %}
-            <h3 class="text-danger display-4">
-                ERRO!
-            </h3>
-            <hr class="my-4">
-            <h4>Erro Sintático
-                <strong>"{{errorSintatico.msg}}"</strong>
-                {% if (not errorSintatico.lineCodeError is empty) %}
-                    , linha:
-                    <strong>{{errorSintatico.lineCodeError}}</strong>
-                {% endif %}
-                {% if (not errorSintatico.currentChar is empty) %}
-                    , Caractere:
-                    <strong>{{errorSintatico.currentChar }}</strong>
-                {% endif %}
-            </h4>
-            <hr class="my-4">
-        {% else %}
-
-        {% endif %}
-    {% endif %}
+		{% if jsonInstrucoes != null and jsonLiterais != null %}
+			<button class="btn btn-success" id="btn-compilar" data-instrucoes="{{ jsonInstrucoes }}" data-literais="{{ jsonLiterais }}" type="button">Compilar</button>
+		{% endif %}
+		{% if errorSintatico != null %}
+			<h3 class="text-danger display-4">
+				ERRO!
+			</h3>
+			<hr class="my-4">
+			<h4>Erro Sintático
+				<strong>"{{errorSintatico.msg}}"</strong>
+				{% if (not errorSintatico.lineCodeError is empty) %}
+					, linha:
+					<strong>{{errorSintatico.lineCodeError}}</strong>
+				{% endif %}
+				{% if (not errorSintatico.currentChar is empty) %}
+					, Caractere:
+					<strong>{{errorSintatico.currentChar }}</strong>
+				{% endif %}
+			</h4>
+			<hr class="my-4">
+		{% elseif errorSemantico != null  %}
+			<h3 class="text-danger display-4">
+				ERRO!
+			</h3>
+			<hr class="my-4">
+			<h4>Erro Semântico
+				<strong>"{{errorSemantico.msg}}"</strong>
+				{% if (not errorSemantico.lineCodeError is empty) %}
+					, linha:
+					<strong>{{errorSemantico.lineCodeError}}</strong>
+				{% endif %}
+				{% if (not errorSemantico.currentChar is empty) %}
+					, Caractere:
+					<strong>{{errorSemantico.currentChar }}</strong>
+				{% endif %}
+			</h4>
+			<hr class="my-4">
+		{% endif %}
+	{% endif %}
 
 
 {% endblock %}

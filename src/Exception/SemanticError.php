@@ -4,7 +4,7 @@
 namespace App\Exception;
 
 
-class SintaticError extends \Exception
+class SemanticError extends \Exception
 {
     private $msg;
     private $index;
@@ -30,7 +30,7 @@ class SintaticError extends \Exception
 
     /**
      * @param mixed $msg
-     * @return SintaticError
+     * @return SemanticError
      */
     public function setMsg($msg)
     {
@@ -50,7 +50,7 @@ class SintaticError extends \Exception
 
     /**
      * @param mixed $index
-     * @return SintaticError
+     * @return SemanticError
      */
     public function setIndex($index)
     {
@@ -70,7 +70,7 @@ class SintaticError extends \Exception
 
     /**
      * @param null $lineCodeError
-     * @return SintaticError
+     * @return SemanticError
      */
     public function setLineCodeError($lineCodeError)
     {
@@ -88,7 +88,7 @@ class SintaticError extends \Exception
 
     /**
      * @param null $currentChar
-     * @return SintaticError
+     * @return SemanticError
      */
     public function setCurrentChar($currentChar)
     {

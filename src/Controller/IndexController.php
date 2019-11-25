@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Exception\LexicalError;
+use App\Exception\SemanticError;
 
 class IndexController extends AbstractController
 {
@@ -26,7 +27,8 @@ class IndexController extends AbstractController
         $listTokens =  new ArrayCollection();
         $erroLexico = null;
         $erroSintatico = null;
-        $areasInstrucoes= null;
+        $erroSemantico = null;
+        $areasInstrucoes = null;
         $tabelaSimbolos = null;
         $instructionsJson = null;
         $literaisJson = null;
@@ -38,13 +40,13 @@ class IndexController extends AbstractController
                 while (($token = $analizerService->nextToken()) != null) {
                     $listTokens->add($token);
                 }
-            } catch (LexicalError $e) {
+            } catch (SintaticError $e) {
                 $erroLexico = $e;
             }
 
             try {
                 $semanticService = new SemanticService();
-                $sintaticService = new SintaticService($listTokens->toArray(),$semanticService);
+                $sintaticService = new SintaticService($listTokens->toArray(), $semanticService);
                 $sintaticService->analize();
                 $instructionsJson = $semanticService->getAreaInstrucoes()->toJson();
                 $literaisJson = $semanticService->getAreaLiterais()->toJson();
@@ -52,16 +54,19 @@ class IndexController extends AbstractController
                 $tabelaSimbolos = $semanticService->tabelaSimbolo->toArray();
             } catch (SintaticError $e) {
                 $erroSintatico = $e;
+            } catch (SemanticError $e) {
+                $erroSemantico = $e;
             }
         }
         return $this->render('home/index.html.twig', [
             'listTokens' => $listTokens,
-            'jsonInstrucoes' =>$instructionsJson,
-            'jsonLiterais'=> $literaisJson,
-            'tabelaInstrucoes'=>$areasInstrucoes,
-            'tabelaSimbolos'=>$tabelaSimbolos,
+            'jsonInstrucoes' => $instructionsJson,
+            'jsonLiterais' => $literaisJson,
+            'tabelaInstrucoes' => $areasInstrucoes,
+            'tabelaSimbolos' => $tabelaSimbolos,
             'errorLexico' => $erroLexico,
             'errorSintatico' => $erroSintatico,
+            'errorSemantico' => $erroSemantico,
             'mensagem' => $request->request->get('mensagem')
         ]);
     }
@@ -91,33 +96,33 @@ class IndexController extends AbstractController
 
         echo "<br>Editado 5 Simbolos";
         //Edita simbolos
-        $tableSimbolo->editar('teste',5,  'geralA', 'geralA-alterado');
-        $tableSimbolo->editar('b', 1,'geralB', 'geralB-alterado');
-        $tableSimbolo->editar('d', 3,'geralA', 'geralA-alterado');
-        $tableSimbolo->editar('ind2',4, 'geralB', 'geralB-alterado');
-        $tableSimbolo->editar('aux1', 0,'geralA', 'geralA-alterado');
+        $tableSimbolo->editar('teste', 5,  'geralA', 'geralA-alterado');
+        $tableSimbolo->editar('b', 1, 'geralB', 'geralB-alterado');
+        $tableSimbolo->editar('d', 3, 'geralA', 'geralA-alterado');
+        $tableSimbolo->editar('ind2', 4, 'geralB', 'geralB-alterado');
+        $tableSimbolo->editar('aux1', 0, 'geralA', 'geralA-alterado');
         //Mostra tabela atual
         $tableSimbolo->showList();
 
         echo "<br>Removido 3 Simbolos";
 
         //Remove simbolos
-        $tableSimbolo->remove('ind1',4);
-        $tableSimbolo->remove('d',3);
-        $tableSimbolo->remove('c',3);
+        $tableSimbolo->remove('ind1', 4);
+        $tableSimbolo->remove('d', 3);
+        $tableSimbolo->remove('c', 3);
         //Mostra tabela atual
         $tableSimbolo->showList();
 
 
         echo "<br>Busca por Simbolo inexistente";
         //Busca simbolo inexistente
-        print_r($tableSimbolo->searchNameAndNivel('c',3,true));
+        print_r($tableSimbolo->searchNameAndNivel('c', 3, true));
 
         echo "<br>Busca por 3 Simbolos existentes";
 
-        dump($tableSimbolo->searchNameAndNivel('aux1',0));
-        dump($tableSimbolo->search('a',1));
-        dump($tableSimbolo->search('ind2',4));
+        dump($tableSimbolo->searchNameAndNivel('aux1', 0));
+        dump($tableSimbolo->search('a', 1));
+        dump($tableSimbolo->search('ind2', 4));
 
         die;
     }

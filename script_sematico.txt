@@ -25,3 +25,24 @@ soma := soma + res;
 end;
 Writeln("Resultado da soma dos cálculos: ", soma);
 End.
+
+
+// CASE 
+
+
+Program caso;
+Var a,b,c,i:integer;
+Begin
+Readln(a,b); 
+Readln(i); 
+c:=0; 
+Case i of
+1,4 : c:= a+b;
+2,3,5 : c:= a-b;
+11 : begin
+c:= a*b;
+Writeln("ultimo ramo");
+end 
+End; 
+Writeln(c);
+End.
