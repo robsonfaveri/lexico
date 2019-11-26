@@ -599,27 +599,12 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
 
-        if (!$this->pilhaCase->isEmpty()) {
+        while (!$this->pilhaCase->isEmpty()) {
             $valorLC = $this->pilhaCase->getTop();
             $this->pilhaCase->removeTop();
 
             self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC + 1);
         }
-
-        /*$this->count++;
-        if($this->count == 2) {
-            dump('-----------inicio');
-            dump($this->count);
-            dump($valorLC);
-            dump($this->areaInstrucoes->LC);
-            dump($oldToken);
-            dump($this->pilhaCase);
-            dump($this->areaInstrucoes);
-            dump('-----------fim');
-            die;
-        }*/
-
-
 
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
         $this->pilhaCaseFinalAux->add($this->areaInstrucoes->LC - 1);
