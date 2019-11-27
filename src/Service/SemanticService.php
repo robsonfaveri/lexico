@@ -381,11 +381,12 @@ class SemanticService
                 $parametro->setGeralA($i * -1);
                 $this->pilhaParametro->removeTop();
             }
+        }
 
             $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, 0);
             $this->pilhaProcedures->add($this->areaInstrucoes->LC - 1);
             $this->pilhaProcedures->add($this->numeroParametro);
-        }
+
     }
 
     //FINALIZA A PROCEDURE, INSERE A INTRUCAO RETU COM O NUMERO DE PARAMETRO GUARDADO NA 110,
