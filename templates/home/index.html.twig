@@ -26,7 +26,13 @@
 	{% elseif listTokens|length > 0 %}
 
 		<p class="alert-success">Compilação Léxica Finalizada</p>
-		<p class="alert-success">Compilação Sintática Finalizada</p>
+		{% if errorSintatico == null %}
+			<p class="alert-success">Compilação Sintática Finalizada</p>
+		{% endif %}
+
+		{% if errorSemantico == null %}
+			<p class="alert-success">Compilação Semântica Finalizada</p>
+		{% endif %}
 
 		<p>
 			<a class=" btn-primary btn" id="btn" data-toggle="collapse" href="#collapseTokens" role="button" aria-expanded="false" aria-controls="collapseTokens">Ver Tabela de Tokens</a>
