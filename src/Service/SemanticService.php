@@ -21,17 +21,9 @@ class SemanticService
 
     private $nivelAtual;
 
-    private $ptLivre;
-
-    private $escopo = [];
-
     private $numeroVariaveis;
 
     private $deslocamento;
-
-    private $lc;
-
-    private $lit;
 
     public static $maxInst = 100;
 
@@ -84,15 +76,10 @@ class SemanticService
 
     private $contexto;
 
-    private $count = 0;
-
     private $currentToken;
-
-
 
     public function exec($branchCode, $currentToken, $previousToken, $oldToken)
     {
-        dump($branchCode);
         $this->currentToken = $currentToken;
         switch ($branchCode) {
 
@@ -124,13 +111,13 @@ class SemanticService
                 $this->semanticAction109();
                 break;
             case 110:
-                $this->semanticAction110($previousToken, $currentToken);
+                $this->semanticAction110();
                 break;
             case 111:
                 $this->semanticAction111();
                 break;
             case 114:
-                $this->semanticAction114($previousToken, $currentToken);
+                $this->semanticAction114($previousToken);
                 break;
             case 115:
                 $this->semanticAction115();
@@ -139,7 +126,7 @@ class SemanticService
                 $this->semanticAction116($previousToken);
                 break;
             case 117:
-                $this->semanticAction117($previousToken);
+                $this->semanticAction117();
                 break;
             case 118:
                 $this->semanticAction118();
@@ -172,7 +159,7 @@ class SemanticService
                 $this->semanticAction128();
                 break;
             case 129:
-                $this->semanticAction129($previousToken, $currentToken);
+                $this->semanticAction129($previousToken);
                 break;
             case 130:
                 $this->semanticAction130($previousToken);
@@ -202,7 +189,7 @@ class SemanticService
                 $this->semanticAction138();
                 break;
             case 139:
-                $this->semanticAction139($previousToken);
+                $this->semanticAction139();
                 break;
             case 140:
                 $this->semanticAction140();
@@ -262,9 +249,9 @@ class SemanticService
                 die;
         }
 
-        //dump($branchCode);dump($this->areaInstrucoes->LC);
     }
 
+    //UTILIZADO PARA INICIALIZAR VARIAVEIS, ARRAYS E PILHAS QUE SERÂO UTILIZADAS
     private function semanticAction100()
     {
         $this->pilha = new Stack();
@@ -281,60 +268,69 @@ class SemanticService
         $this->areaLiterais = new AreaLiterais();
         $this->areaInstrucoes = new AreaInstrucoes(self::$maxInst);
         $this->nivelAtual = 0;
-        $this->ptLivre = 1;
-        $this->escopo[0] = 1;
         $this->numeroVariaveis = 0;
         $this->deslocamento = 3;
-        $this->lc = 1;
-        $this->lit = 1;
         self::inicializaAI($this->areaInstrucoes);
         self::inicializaAL($this->areaLiterais);
     }
 
+
+    //INCLUINDO INSTRUCAO "PARA" NA AREA DE INSTRUCAO
     public function semanticAction101()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::PARA, 0, 0);
-        //        dd($this->areaInstrucoes);
     }
 
+    //INCLUIDO A INSTRUCAO "AMEM" NA AREA DE INSTRUCOES DEIXANDO 3 POSICOES RESERVADAS
+    //  SOMANDO O NUMERO DE VARIAVEIS QUE CONTEM NO ESCOPO
     public function semanticAction102()
     {
         $this->deslocamento = 3;
         $operacao2 = $this->deslocamento + $this->numeroVariaveis;
-
-
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, $operacao2);
     }
 
+
+    //INSERIDO NA TABELA DE SIMBOLO OS PARAMETROS E VARIAVEIS CONFORME O NIVEL ATUAL QUE O PROGRAMA OU PROCEDIMENTO SE ENCONTRA
     public function semanticAction104($previousToken)
     {
         $tokenName = $previousToken->getName();
-        $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
         if ($this->tipoIdentificador == Simbolo::VARIAVEL) {
-            $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::VARIAVEL, $this->nivelAtual, $this->deslocamento, 0);
-            $this->numeroVariaveis++;
-            $this->deslocamento++;
+            $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
+            if($exist){
+                throw new SemanticError("Erro semântico, Variavel já declarada, ação 104", 104, $this->currentToken->getLineToken());
+            }else {
+                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::VARIAVEL, $this->nivelAtual, $this->deslocamento, 0);
+                $this->numeroVariaveis++;
+                $this->deslocamento++;
+            }
         } elseif ($this->tipoIdentificador == Simbolo::PARAMETRO) {
-            $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PARAMETRO, $this->nivelAtual, 0, 0);
-            $this->numeroParametro++;
-            $this->pilhaParametro->add($this->tabelaSimbolo->list[$this->lastHash]);
+            $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
+            if($exist){
+                throw new SemanticError("Erro semântico, parametro já declarado, ação 104", 104, $this->currentToken->getLineToken());
+            }else {
+                $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PARAMETRO, $this->nivelAtual, 0, 0);
+                $this->numeroParametro++;
+                $this->pilhaParametro->add($this->tabelaSimbolo->list[$this->lastHash]);
+            }
         } else {
-            throw new SemanticError("Erro semântico, ação 104", 104, $this->currentToken->getLineToken());
+            throw new SemanticError("Erro semântico, identificador não reconhecido, ação 104", 104, $this->currentToken->getLineToken());
         }
     }
 
+    //ADICIONA CONSTANTE CONFORME O ESCOPO QUE ELA PERTENCE
     public function semanticAction105($previousToken)
     {
         $tokenName = $previousToken->getName();
-
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
         if ($exist) {
-            throw new SemanticError("Erro semântico, ação 105", 105, $this->currentToken->getLineToken());
+            throw new SemanticError("Erro semântico, constante já declarada, ação 105", 105, $this->currentToken->getLineToken());
         } else {
             $this->lastHash = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::CONSTANTE, $this->nivelAtual, 0, 0);
         }
     }
 
+    //ALTERA VALOR REFENTE DA CONST SALVO NA 105
     public function semanticAction106($previousToken)
     {
         $tokenName = $previousToken->getName();
@@ -342,19 +338,23 @@ class SemanticService
         $constante->setGeralA($tokenName);
     }
 
+    //SETA QUE OS IDENTIFICADORES A SEREM DECLARADOS SÂO VARIAVEIS
+    // E ZERA A VARIAVEL QUE GUARDA O NUMERO DE VARIAVEIS PARA GARANTIR QUE NÂO TENHA MAIS VARIAVEIS QUE O ESPERADO
     public function semanticAction107()
     {
         $this->tipoIdentificador = Simbolo::VARIAVEL;
         $this->numeroVariaveis = 0;
     }
 
+
+    //ADICIONA PROCEDURE A TABELA DE SIMBOLOS CASO ELA NÂO EXISTA E SALVA SEU HASH PARA PROXIMAS ACOES
+    //ATUALIZA NIVEL E ZERA VARIAVEIS PARA SEREM USADAS NO ESCOPO DA PROCEDURE
     public function semanticAction108($previousToken)
     {
         $tokenName = $previousToken->getName();
-
         $exist = $this->tabelaSimbolo->searchNameAndNivel($tokenName, $this->nivelAtual);
         if ($exist) {
-            throw new SemanticError("Erro semântico, ação 108", 108, $this->currentToken->getLineToken());
+            throw new SemanticError("Erro semântico, Procedure já declarada, ação 108", 108, $this->currentToken->getLineToken());
         } else {
             $this->lastProcedure = $this->tabelaSimbolo->adiciona($tokenName, Simbolo::PROCEDURE, $this->nivelAtual, $this->areaInstrucoes->LC + 1, 0);
             $this->nivelAtual++;
@@ -365,6 +365,8 @@ class SemanticService
         }
     }
 
+    //CASO A PROCEDURE TENHA PARAMETRO ATUALIZA o NUMERO DE PARAMETRO QUE ELA POSSUI NA TABELA DE SIMBOLOS E ATUALIZANDO A PILHA DE PARAMETROS
+    //ADICIONA A INSTRUÇÂO DSVS E GUARDA NA PILHA DE PROCEDURES O LC E NUMERO DE PARAMETROS PARA USO NA ACAO 110
     public function semanticAction109()
     {
         if ($this->possuiParametro) {
@@ -386,7 +388,9 @@ class SemanticService
         }
     }
 
-    public function semanticAction110($previousToken, $currentToken)
+    //FINALIZA A PROCEDURE, INSERE A INTRUCAO RETU COM O NUMERO DE PARAMETRO GUARDADO NA 110,
+    //ALTERA O DSVS DA 110 PARA O LC ATUAL, REMOVE TODOS O INDICADORES DO ESCOPO DA PROCEDURE ATUAL E  ATUALIZA O NIVEL
+    public function semanticAction110()
     {
         $numeroParametro = $this->pilhaProcedures->getTop();
         $this->pilhaProcedures->removeTop();
@@ -400,13 +404,16 @@ class SemanticService
         $this->nivelAtual--;
     }
 
+    //CLASSIFICA O IDENTIFICADOR ENCONTRADO COMO UM PARAMETRO E INFORMA QUE A PROSSEDURE POSSUI PARAMETRO
     public function semanticAction111()
     {
         $this->tipoIdentificador = Simbolo::PARAMETRO;
         $this->possuiParametro = true;
     }
 
-    public function semanticAction114($previousToken, $currentToken)
+    //COM BASE NO TOKEN VERIFICA SE ELE EXISTE NA TABELA DE SIMBOLOS E SE È UMA VARIAVEL,
+    // ADICIONANDO UM UMA VARIAVEL DE CONTROLE CASO VERDADEIRO
+    public function semanticAction114($previousToken)
     {
         $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
 
@@ -421,6 +428,7 @@ class SemanticService
         }
     }
 
+    //ADICIONA A INSTRUÇAO ARMZ A AREA DE INSTRUÇOES USANDO A DIFERENCA ENTRE NIVEL ATUAL E O NIVEL DO IDENTIFICADOR ATUAL
     public function semanticAction115()
     {
         $operacao1 = $this->nivelAtual - $this->identificadorAtual->getNivel();
@@ -428,10 +436,11 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
     }
 
+    //VERIFICA COM BASE NO TOKEN ATUAL SE ELE EXISTE NA TABELA DE SIMBOLO E VERIFICA SE É UMA PROCEDURE
+    // ADICIONANDO A MESMA A UMA VARIAVEL DE CONTROLE CASO VERDADEIRO
     public function semanticAction116($previousToken)
     {
         $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
-
         if ($simbolo != null) {
             if ($simbolo->getCategoria() == Simbolo::PROCEDURE) {
                 $this->identificadorAtual = $simbolo;
@@ -443,11 +452,12 @@ class SemanticService
         }
     }
 
-    public function semanticAction117($previousToken)
+    //IMPLEMENTAÇÂO DA INSTRUCAO CALL, CASO O NUMERO DE PARAMETROS DA PROCEDURE ENCONTRADA NA 116
+    // FOR DIFERENTE DOS PARAMETROS PASSADOS NO CALL GERA ERRO
+    // SENAO GERA CALL APONTANDO PARA O INDICADOR SALVO EM GERALA DA PROCEDURE EM 108 e ZERA O NUMERO DE PARAMETROS EFETIVOS
+    public function semanticAction117()
     {
-
         $simbolo = $this->tabelaSimbolo->search($this->identificadorAtual->getNome());
-
         if ($simbolo->getGeralB() != $this->numeroParametroEfetivo) {
             //dd($this->areaInstrucoes);
             throw new SemanticError("Erro semântico, ação 117", 117, $this->currentToken->getLineToken());
@@ -458,17 +468,20 @@ class SemanticService
         }
     }
 
+    //INCREMENTA O NUMERO DE PARAMETRO EFETIVO, QUE È O USADO NA CHAMADA DO PARAMETRO
     public function semanticAction118()
     {
         $this->numeroParametroEfetivo++;
     }
 
+    //ADICIONA A INSTRUCAO DSVF PARA O IF E SALVA A POSISAO NA AREA DE INSTRUCAO DE DSVF
     public function semanticAction120()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
         $this->pilhaIFs->add($this->areaInstrucoes->LC - 1);
     }
 
+    //COMPLETA A INSTRUÇÂO DSVS SALVO NA 122
     public function semanticAction121()
     {
         $valorLC = $this->pilhaIFs->getTop();
@@ -477,6 +490,7 @@ class SemanticService
         self::alterarAI($this->areaInstrucoes, $valorLC, 0, $this->areaInstrucoes->LC);
     }
 
+    //RESOLVE O DSVF DO 120 E INCLUI O DSVS NA AREA DE INSTRUÇOES
     public function semanticAction122()
     {
         $valorLC = $this->pilhaIFs->getTop();
@@ -487,17 +501,20 @@ class SemanticService
         $this->pilhaIFs->add($this->areaInstrucoes->LC - 1);
     }
 
+    //SALVA O VALOR DE LC NA PILHA PARA PODER RETORNAR PARA O PONTO ATUAL NO WHILE
     public function semanticAction123()
     {
         $this->pilhaWhile->add($this->areaInstrucoes->LC);
     }
 
+    //ADICIONA A AREA DE INSTRUÇOES O DSVF E ADICIONA SUA POSICAO NA PILHA
     public function semanticAction124()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVF, 0, 0);
         $this->pilhaWhile->add($this->areaInstrucoes->LC - 1);
     }
 
+    //RESOLVE o DSVF da 124 E INCLI DSVS COM VALOR SALVO EM 123 PARA RETORNO
     public function semanticAction125()
     {
         $valorLC = $this->pilhaWhile->getTop();
@@ -511,11 +528,13 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::DSVS, 0, $valorLC);
     }
 
+    //SALVA VALOR DA POSICAO ATUAL DA AI PARA USO POSTERIOR PARA RETORNO
     public function semanticAction126()
     {
         $this->pilhaRepeat->add($this->areaInstrucoes->LC);
     }
 
+    //GERA DSVF USANDO O INDICE SALVO em 126
     public function semanticAction127()
     {
         $valorLC = $this->pilhaRepeat->getTop();
@@ -528,7 +547,9 @@ class SemanticService
         $this->contexto = 'readln';
     }
 
-    public function semanticAction129($previousToken, $currentToken)
+    //VERIFICA SE CONTEXTO FOR DE READLN ADD A AREA DE INTRUÇÂO LEIT E ARMZ CONFORME O NIVEL DO TOKEN ATUAL COM O A DIFERENCA ENTRE O NIVEL ATUAL
+    //CASO EXPRESSAO CARREVA VALOR DE CONSTANTE OU VARIAVEL SALVO NA TALEBA DE SIMBOLO
+    public function semanticAction129($previousToken)
     {
         $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
         if ($this->contexto == "readln") {
@@ -547,7 +568,7 @@ class SemanticService
         } elseif ($this->contexto == "expressao") {
             if ($simbolo != null) {
                 if ($simbolo->getCategoria() == Simbolo::PROCEDURE) {
-                    throw new SemanticError("Erro semântico, simbolo e procedure, ação 129", 129, $this->currentToken->getLineToken());
+                    throw new SemanticError("Erro semântico, identificador inválido, ação 129", 129, $this->currentToken->getLineToken());
                 } else {
                     if ($simbolo->getCategoria() == Simbolo::CONSTANTE) {
                         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $simbolo->getGeralA());
@@ -562,12 +583,14 @@ class SemanticService
         }
     }
 
+    //GERA IMPRL NA AREA DE INSTRUÇÔES E USA A POSIÇÂO EM QUE O LITERAL FOI SALVO NA AREA DE LITERAIS
     public function semanticAction130($previousToken)
     {
         self::incluirAL($this->areaLiterais, $previousToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPRL, 0, $this->areaLiterais->LIT - 1);
     }
 
+    //GERA IMPR NA AREA DE INTRUÇOES
     public function semanticAction131()
     {
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::IMPR, 0, 0);
@@ -575,13 +598,13 @@ class SemanticService
 
     public function semanticAction132()
     {
-        //??
+        //não utilizado
 
     }
 
+    //FINALIZAÇÂO DO CASE EM QUESTAO, ALTERADO Os DSVS SALVO EM 135 E INCLUI AMEM A AREA DE INSTRUCAO
     public function semanticAction133()
     {
-
         while (!$this->pilhaCaseFinal->isEmpty()) {
             $valorLC = $this->pilhaCaseFinal->getTop();
             $this->pilhaCaseFinal->removeTop();
@@ -591,10 +614,10 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::AMEM, 0, -1);
     }
 
+
+    //GERA INSTRUCOES DO PARA O CASE E ALTERA OS DSVTs SALVOS NA PILHA, INCLUI O DSVF NA PILHA
     public function semanticAction134($oldToken)
     {
-
-
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
@@ -610,6 +633,7 @@ class SemanticService
         $this->pilhaCaseFinalAux->add($this->areaInstrucoes->LC - 1);
     }
 
+    //RESOLVE DSVF DO 134 E insere intrução DSVS
     public function semanticAction135()
     {
         $valorLC = $this->pilhaCaseFinalAux->getTop();
@@ -620,9 +644,9 @@ class SemanticService
         $this->pilhaCaseFinal->add($this->areaInstrucoes->LC - 1);
     }
 
+    //GERA INSTRUÇÔES neCESSARIA PARA A ACAO ATUAL RELATIVO AO case GERA O DSVT QUE SERA TRATADO NO 134
     public function semanticAction136($oldToken)
     {
-
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CRCT, 0, $oldToken->getName());
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::CMIG, 0, 0);
@@ -630,7 +654,7 @@ class SemanticService
         $this->pilhaCase->add($this->areaInstrucoes->LC - 1);
     }
 
-
+    //VERIFICA SE TOKEN ATUAL ESTÀ NA TABELA DE SIMBOLO, SE SIM, ADICIONA IDENTIFICADOR ATUAL DE CONTROLE DE FOR
     public function semanticAction137($previousToken)
     {
         $simbolo = $this->tabelaSimbolo->search($previousToken->getName());
@@ -646,6 +670,7 @@ class SemanticService
         }
     }
 
+    //ADICIONA INSTRUCAO ARMZ COM DADOS DO INDENTIFICADOR SALVO NO 137
     public function semanticAction138()
     {
         $operacao1 = $this->nivelAtual - $this->identificadorForAtual->getNivel();
@@ -653,7 +678,9 @@ class SemanticService
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::ARMZ, $operacao1, $operacao2);
     }
 
-    public function semanticAction139($previousToken)
+    //ADICIONA INDICE ATUAL DA AREA DE INSTRUCAO a PILHA DE FOR ,
+    // E ADICIONA INTRUÇOES NECESSARIAS  PARA O FOR , INCLUSIVE O DSVF E INCLUI SUA POSIÇÂO A PILHA DE FOR
+    public function semanticAction139()
     {
         $this->pilhaFor->add($this->areaInstrucoes->LC);
         $this->incluirAI($this->areaInstrucoes, AreaInstrucoes::COPI, 0, 0);
@@ -666,6 +693,8 @@ class SemanticService
         $this->pilhaFor->add($this->areaInstrucoes->LC - 1);
     }
 
+    //AO FINAL DO FOR INSERE AS INTRUCOES NECESSARIAS PARA O CONTROLE DO FOR,
+    // COMPLETANDO DSVF , ADICIONANDO o DSVS, COM VALORE DA PILHA DE FOR E ADICIONA O AMEM
     public function semanticAction140()
     {
         $operacao1 = $this->identificadorForAtual->getNivel();
