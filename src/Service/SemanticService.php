@@ -424,7 +424,7 @@ class SemanticService
                 throw new SemanticError("Erro semântico, não é variavel, ação 114", 114, $this->currentToken->getLineToken());
             }
         } else {
-            throw new SemanticError("Erro semântico, não foi declarado, ação 114", 114, $this->currentToken->getLineToken());
+            throw new SemanticError("Erro semântico, variavel não foi declarada, ação 114", 114, $this->currentToken->getLineToken());
         }
     }
 
