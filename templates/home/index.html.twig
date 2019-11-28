@@ -26,11 +26,11 @@
 	{% elseif listTokens|length > 0 %}
 
 		<p class="alert-success">Compilação Léxica Finalizada</p>
-		{% if errorSintatico == null %}
+		{% if errorLexico == null and errorSintatico == null %}
 			<p class="alert-success">Compilação Sintática Finalizada</p>
 		{% endif %}
 
-		{% if errorSemantico == null %}
+		{% if errorSintatico == null and errorSemantico == null %}
 			<p class="alert-success">Compilação Semântica Finalizada</p>
 		{% endif %}
 
@@ -128,6 +128,7 @@
 		{% if jsonInstrucoes != null and jsonLiterais != null %}
 			<button class="btn btn-success" id="btn-compilar" data-instrucoes="{{ jsonInstrucoes }}" data-literais="{{ jsonLiterais }}" type="button">Compilar</button>
 		{% endif %}
+		
 		{% if errorSintatico != null %}
 			<h3 class="text-danger display-4">
 				ERRO!

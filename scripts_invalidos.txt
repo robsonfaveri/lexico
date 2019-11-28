@@ -1,145 +1,80 @@
 *------ Scripts Validos -------------------------------------------*
 
-program testeproc1;
-var
-x, y :integer;
-procedure P;
-var
-a :integer;
+Program teste1;
+Var a,soma:integer;
+Begin
+Writeln("iniciando programa");
+soma:=0;
+Repeat
+	begin
+	Readln(a,b);
+	soma := soma + a + b;
+end
+Until a>b;
+Writeln(soma);
+End.
+
+* ------------------------- FIM -----------------------------------*
+
+Program teste2;
+Var a,b:integer;
+Begin
+	a:=0;
+	For c:= 10 to 20 do
+	begin
+	a:= a+2*b;
+	Writeln(a);
+	end;
+End.
+
+* ------------------------- FIM -----------------------------------*
+
+Program teste3; 
+Var it:integer;
+Begin
+Writeln("Nr. iteracoes: ");
+Readln(d);
+While it > 0 do
 begin
-	readln(a);
-	if a=x then
-		z:=z+x
-	else begin
-		z:=z-x;
-		call p
-	end
+	Writeln("it:", it);
+	it := it - 1
 end;
-begin
-	z:=0;
-	readln(x,y);
-	if x>y then
-		call p 
-	else
-		z:=z+x+y;
-	writeln("string");
-end.
+End.
 
-*------ Fim -------------------------------------------------------*
+* ------------------------- FIM -----------------------------------*
 
-program testeproc1;
-var
-x, y, z:integer;
-procedure P;
-var
-a, p :integer;
-begin
-	readln(a);
-	if a=x then
-		z:=z+x
-	else begin
-		z:=z-x;
-		call p
+Program teste4;
+Const Y=10;
+Var a,b,soma:integer;
+Begin
+	soma:=0;
+	Repeat
+	begin
+		Readln(a);
+		While b<X do Begin
+		soma := soma+a;
+		b := b+1;
+		end;
 	end
-end;
-begin
-	z:=0;
-	readln(x,y);
-	if x>y then
-		call p 
-	else
-		z:=z+x+y;
-	writeln("string");
-end.
+	Until soma > 100;
+	Writeln(soma);
+End.
 
-*------ Fim -------------------------------------------------------*
+* ------------------------- FIM -----------------------------------*
 
-program testeproc3;
-var
-a :integer;
-begin
-	readln(a);
-	z:=z+y;
-	z:=y+x+z;
-	if a=x then
-		z:=z+x
-	else begin
-		z:=z-x;
-		call p
-	end
-end.
-
-*------ Fim -------------------------------------------------------*
-
-program testeproc4;
-var
-x, y, z :integer;
-procedure P;
-var
-a :integer;
-begin
-	readln(a);
-	if a=x then
-		z:=z+x
-	else begin
-		z:=z-x;
-		call p;
-               readln(a);
-	 if a=x then
-		z:=z+x
-	 else begin
-		z:=z-x;
-		call x
-	   end;
-	end
-end;
-begin
-	z:=0;
-	readln(x,y);
-	if x>y then
-		call p 
-	else
-		z:=z+x+y;
-	writeln("string");
-end.
-
-*------ Fim -------------------------------------------------------*
-
-program testeproc4;
-var
-x, y, z :integer;
-procedure P;
-var
-a :integer;
-begin
-end;
-procedure P;
-var
-a :integer;
-begin
-	readln(a);
-	if a=x then
-		z:=z+x
-	else begin
-		z:=z-x;
-		call p;
-               readln(a);
-	 if a=x then
-		z:=z+x
-	 else begin
-		z:=z-x;
-		call x
-	   end;
-	end
-end;
-begin
-	z:=0;
-	readln(x,y);
-	if x>y then
-		call p 
-	else
-		z:=z+x+y;
-	writeln("string");
-end.
-
-*------ Fim -------------------------------------------------------*
+Program teste5;
+Var a,b,c,i:integer;
+Begin
+Readln(a,b); 
+Readln(i); 
+c:=0; 
+Case i of
+1,4 : c:= a+b;
+2,3,5 : c:= a-b;
+11 : begin
+c:= a*b;
+Writeln("ultimo ramo");
+end 
+End; 
+Writeln(t);
+End.
